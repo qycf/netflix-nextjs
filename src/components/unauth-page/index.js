@@ -139,7 +139,7 @@ function Pricing({
               </p>
             </div>
             <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
-              {plansList.map((item, index) => (
+              {plansList && plansList.map((item, index) => (
                 <div key={index} className="w-[300px] flex flex-col justify-between p-6 mx-auto max-w-lg text-center text-white bg-[#18181B] rounded-lg shadow" style={{ height: '100%' }}>
                   <div>
                     <h3 className="mb-4 text-2xl font-semibold">{item.planName}</h3>

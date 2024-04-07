@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qu2u.mapper.MacVodMapper">
+
+    <resultMap id="BaseResultMap" type="com.qu2u.domain.MacVod">
+            <id property="vodId" column="vod_id" jdbcType="INTEGER"/>
+            <result property="typeId" column="type_id" jdbcType="SMALLINT"/>
+            <result property="typeId1" column="type_id_1" jdbcType="SMALLINT"/>
+            <result property="groupId" column="group_id" jdbcType="SMALLINT"/>
+            <result property="vodName" column="vod_name" jdbcType="VARCHAR"/>
+            <result property="vodSub" column="vod_sub" jdbcType="VARCHAR"/>
+            <result property="vodEn" column="vod_en" jdbcType="VARCHAR"/>
+            <result property="vodStatus" column="vod_status" jdbcType="TINYINT"/>
+            <result property="vodLetter" column="vod_letter" jdbcType="CHAR"/>
+            <result property="vodColor" column="vod_color" jdbcType="VARCHAR"/>
+            <result property="vodTag" column="vod_tag" jdbcType="VARCHAR"/>
+            <result property="vodClass" column="vod_class" jdbcType="VARCHAR"/>
+            <result property="vodPic" column="vod_pic" jdbcType="VARCHAR"/>
+            <result property="vodPicThumb" column="vod_pic_thumb" jdbcType="VARCHAR"/>
+            <result property="vodPicSlide" column="vod_pic_slide" jdbcType="VARCHAR"/>
+            <result property="vodPicScreenshot" column="vod_pic_screenshot" jdbcType="VARCHAR"/>
+            <result property="vodActor" column="vod_actor" jdbcType="VARCHAR"/>
+            <result property="vodDirector" column="vod_director" jdbcType="VARCHAR"/>
+            <result property="vodWriter" column="vod_writer" jdbcType="VARCHAR"/>
+            <result property="vodBehind" column="vod_behind" jdbcType="VARCHAR"/>
+            <result property="vodBlurb" column="vod_blurb" jdbcType="VARCHAR"/>
+            <result property="vodRemarks" column="vod_remarks" jdbcType="VARCHAR"/>
+            <result property="vodPubdate" column="vod_pubdate" jdbcType="VARCHAR"/>
+            <result property="vodTotal" column="vod_total" jdbcType="INTEGER"/>
+            <result property="vodSerial" column="vod_serial" jdbcType="VARCHAR"/>
+            <result property="vodTv" column="vod_tv" jdbcType="VARCHAR"/>
+            <result property="vodWeekday" column="vod_weekday" jdbcType="VARCHAR"/>
+            <result property="vodArea" column="vod_area" jdbcType="VARCHAR"/>
+            <result property="vodLang" column="vod_lang" jdbcType="VARCHAR"/>
+            <result property="vodYear" column="vod_year" jdbcType="VARCHAR"/>
+            <result property="vodVersion" column="vod_version" jdbcType="VARCHAR"/>
+            <result property="vodState" column="vod_state" jdbcType="VARCHAR"/>
+            <result property="vodAuthor" column="vod_author" jdbcType="VARCHAR"/>
+            <result property="vodJumpurl" column="vod_jumpurl" jdbcType="VARCHAR"/>
+            <result property="vodTpl" column="vod_tpl" jdbcType="VARCHAR"/>
+            <result property="vodTplPlay" column="vod_tpl_play" jdbcType="VARCHAR"/>
+            <result property="vodTplDown" column="vod_tpl_down" jdbcType="VARCHAR"/>
+            <result property="vodIsend" column="vod_isend" jdbcType="TINYINT"/>
+            <result property="vodLock" column="vod_lock" jdbcType="TINYINT"/>
+            <result property="vodLevel" column="vod_level" jdbcType="TINYINT"/>
+            <result property="vodCopyright" column="vod_copyright" jdbcType="TINYINT"/>
+            <result property="vodPoints" column="vod_points" jdbcType="SMALLINT"/>
+            <result property="vodPointsPlay" column="vod_points_play" jdbcType="SMALLINT"/>
+            <result property="vodPointsDown" column="vod_points_down" jdbcType="SMALLINT"/>
+            <result property="vodHits" column="vod_hits" jdbcType="INTEGER"/>
+            <result property="vodHitsDay" column="vod_hits_day" jdbcType="INTEGER"/>
+            <result property="vodHitsWeek" column="vod_hits_week" jdbcType="INTEGER"/>
+            <result property="vodHitsMonth" column="vod_hits_month" jdbcType="INTEGER"/>
+            <result property="vodDuration" column="vod_duration" jdbcType="VARCHAR"/>
+            <result property="vodUp" column="vod_up" jdbcType="INTEGER"/>
+            <result property="vodDown" column="vod_down" jdbcType="INTEGER"/>
+            <result property="vodScore" column="vod_score" jdbcType="DECIMAL"/>
+            <result property="vodScoreAll" column="vod_score_all" jdbcType="INTEGER"/>
+            <result property="vodScoreNum" column="vod_score_num" jdbcType="INTEGER"/>
+            <result property="vodTime" column="vod_time" jdbcType="INTEGER"/>
+            <result property="vodTimeAdd" column="vod_time_add" jdbcType="INTEGER"/>
+            <result property="vodTimeHits" column="vod_time_hits" jdbcType="INTEGER"/>
+            <result property="vodTimeMake" column="vod_time_make" jdbcType="INTEGER"/>
+            <result property="vodTrysee" column="vod_trysee" jdbcType="SMALLINT"/>
+            <result property="vodDoubanId" column="vod_douban_id" jdbcType="INTEGER"/>
+            <result property="vodDoubanScore" column="vod_douban_score" jdbcType="DECIMAL"/>
+            <result property="vodReurl" column="vod_reurl" jdbcType="VARCHAR"/>
+            <result property="vodRelVod" column="vod_rel_vod" jdbcType="VARCHAR"/>
+            <result property="vodRelArt" column="vod_rel_art" jdbcType="VARCHAR"/>
+            <result property="vodPwd" column="vod_pwd" jdbcType="VARCHAR"/>
+            <result property="vodPwdUrl" column="vod_pwd_url" jdbcType="VARCHAR"/>
+            <result property="vodPwdPlay" column="vod_pwd_play" jdbcType="VARCHAR"/>
+            <result property="vodPwdPlayUrl" column="vod_pwd_play_url" jdbcType="VARCHAR"/>
+            <result property="vodPwdDown" column="vod_pwd_down" jdbcType="VARCHAR"/>
+            <result property="vodPwdDownUrl" column="vod_pwd_down_url" jdbcType="VARCHAR"/>
+            <result property="vodContent" column="vod_content" jdbcType="VARCHAR"/>
+            <result property="vodPlayFrom" column="vod_play_from" jdbcType="VARCHAR"/>
+            <result property="vodPlayServer" column="vod_play_server" jdbcType="VARCHAR"/>
+            <result property="vodPlayNote" column="vod_play_note" jdbcType="VARCHAR"/>
+            <result property="vodPlayUrl" column="vod_play_url" jdbcType="VARCHAR"/>
+            <result property="vodDownFrom" column="vod_down_from" jdbcType="VARCHAR"/>
+            <result property="vodDownServer" column="vod_down_server" jdbcType="VARCHAR"/>
+            <result property="vodDownNote" column="vod_down_note" jdbcType="VARCHAR"/>
+            <result property="vodDownUrl" column="vod_down_url" jdbcType="VARCHAR"/>
+            <result property="vodPlot" column="vod_plot" jdbcType="TINYINT"/>
+            <result property="vodPlotName" column="vod_plot_name" jdbcType="VARCHAR"/>
+            <result property="vodPlotDetail" column="vod_plot_detail" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        vod_id,type_id,type_id_1,
+        group_id,vod_name,vod_sub,
+        vod_en,vod_status,vod_letter,
+        vod_color,vod_tag,vod_class,
+        vod_pic,vod_pic_thumb,vod_pic_slide,
+        vod_pic_screenshot,vod_actor,vod_director,
+        vod_writer,vod_behind,vod_blurb,
+        vod_remarks,vod_pubdate,vod_total,
+        vod_serial,vod_tv,vod_weekday,
+        vod_area,vod_lang,vod_year,
+        vod_version,vod_state,vod_author,
+        vod_jumpurl,vod_tpl,vod_tpl_play,
+        vod_tpl_down,vod_isend,vod_lock,
+        vod_level,vod_copyright,vod_points,
+        vod_points_play,vod_points_down,vod_hits,
+        vod_hits_day,vod_hits_week,vod_hits_month,
+        vod_duration,vod_up,vod_down,
+        vod_score,vod_score_all,vod_score_num,
+        vod_time,vod_time_add,vod_time_hits,
+        vod_time_make,vod_trysee,vod_douban_id,
+        vod_douban_score,vod_reurl,vod_rel_vod,
+        vod_rel_art,vod_pwd,vod_pwd_url,
+        vod_pwd_play,vod_pwd_play_url,vod_pwd_down,
+        vod_pwd_down_url,vod_content,vod_play_from,
+        vod_play_server,vod_play_note,vod_play_url,
+        vod_down_from,vod_down_server,vod_down_note,
+        vod_down_url,vod_plot,vod_plot_name,
+        vod_plot_detail
+    </sql>
+</mapper>

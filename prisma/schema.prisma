@@ -1,0 +1,152 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id         Int       @id @default(autoincrement()) @map("user_id") @db.UnsignedInt // 用户ID
+  group_id        Int       @default(1) @map("group_id") @db.UnsignedSmallInt // 用户组ID,0管理员,1普通用户
+  username        String    @db.VarChar(32) // 用户名
+  password        String    @db.VarChar(64) // 密码
+  email           String    @db.VarChar(32) // 邮箱
+  status          Int       @default(0) @db.UnsignedTinyInt // 当前状态,0正常,1禁用
+  nickname        String?   @db.VarChar(32) // 昵称，可选
+  reg_time        DateTime? @map("reg_time") // 注册时间，可选
+  reg_ip          String?   @db.VarChar(15) // 注册IP，可选
+  last_login_time DateTime? @map("last_login_time") // 上次登录时间，可选
+  last_login_ip   String?   @db.VarChar(15) // 上次登录IP，可选
+
+  @@index([group_id], name: "type_id")
+  @@index([username], name: "user_name")
+  @@index([reg_time], name: "user_reg_time")
+  @@map("user")
+}
+
+model UserGroup {
+  group_id     Int    @id @default(autoincrement()) @map("group_id")
+  group_name   String @map("group_name") @db.VarChar(32) // 用户组名称
+  group_status Int    @default(0) @map("group_status") @db.UnsignedTinyInt // 用户组状态,0正常,1禁用
+  group_type   String @map("group_type") @db.VarChar(16) // 用户组类型
+
+  @@index(fields: [group_status], name: "group_status")
+  @@map("user_group")
+}
+
+model Vod {
+  vod_id           Int      @id @default(autoincrement()) @map("vod_id")
+  type_id          Int      @map("type_id")
+  group_id         Int      @default(1) @map("group_id")
+  vod_name         String?  @map("vod_name") @db.VarChar(255)
+  vod_sub          String?  @map("vod_sub") @db.VarChar(255)
+  vod_en           String?  @map("vod_en") @db.VarChar(255)
+  vod_status       Int      @default(0) @map("vod_status")
+  vod_tag          String?  @map("vod_tag") @db.VarChar(100)
+  vod_class        String?  @map("vod_class") @db.VarChar(255)
+  vod_pic          String?  @map("vod_pic") @db.VarChar(1024)
+  vod_pic_thumb    String?  @map("vod_pic_thumb") @db.VarChar(1024)
+  vod_pic_slide    String?  @map("vod_pic_slide") @db.VarChar(1024)
+  vod_actor        String?  @map("vod_actor") @db.VarChar(255)
+  vod_director     String?  @map("vod_director") @db.VarChar(255)
+  vod_writer       String?  @map("vod_writer") @db.VarChar(100)
+  vod_blurb        String?  @map("vod_blurb") @db.VarChar(255)
+  vod_remarks      String?  @map("vod_remarks") @db.VarChar(100)
+  vod_pubdate      String?  @map("vod_pubdate") @db.VarChar(100)
+  vod_state        String?  @map("vod_state") @db.VarChar(30)
+  vod_level        Int?     @map("vod_level")
+  vod_copyright    Int?     @default(0) @map("vod_copyright")
+  vod_hits         Int?     @map("vod_hits")
+  vod_hits_day     Int?     @map("vod_hits_day")
+  vod_hits_week    Int?     @map("vod_hits_week")
+  vod_hits_month   Int?     @map("vod_hits_month")
+  vod_duration     String?  @map("vod_duration") @db.VarChar(10)
+  vod_time         Int?     @map("vod_time")
+  vod_time_add     Int?     @map("vod_time_add")
+  vod_douban_id    Int?     @map("vod_douban_id")
+  vod_douban_score Decimal? @map("vod_douban_score") @db.Decimal(3, 1)
+  vod_play_from    String?  @map("vod_play_from") @db.VarChar(255)
+  vod_play_url     String?  @map("vod_play_url") @db.MediumText
+  // 允许为null
+
+  @@map("vod")
+}
+
+model Type {
+  type_id     Int    @id @default(autoincrement())
+  type_name   String
+  type_slug   String
+  type_rank   Int    @default(0)
+  type_status Int    @default(0) @map("type_status")
+
+  @@map("type")
+}
+
+// CREATE TABLE `mac_vod` (
+// `vod_id` INT ( 10 ) UNSIGNED NOT NULL AUTO_INCREMENT, 
+// `type_id` SMALLINT ( 6 ) NOT NULL DEFAULT '0',        // 类型ID
+// `group_id` SMALLINT ( 6 ) UNSIGNED NOT NULL DEFAULT '0', // 分组ID
+// `vod_name` VARCHAR ( 255 ) NOT NULL DEFAULT '',       // 视频名称
+// `vod_sub` VARCHAR ( 255 ) NOT NULL DEFAULT '',       // 视频别名
+// `vod_en` VARCHAR ( 255 ) NOT NULL DEFAULT '',       // 视频英文名
+// `vod_status` TINYINT ( 1 ) UNSIGNED NOT NULL DEFAULT '0', // 视频状态
+// `vod_letter` CHAR ( 1 ) NOT NULL DEFAULT '',      // 首字母
+// `vod_color` VARCHAR ( 6 ) NOT NULL DEFAULT '',  // 颜色
+// `vod_tag` VARCHAR ( 100 ) NOT NULL DEFAULT '', // 标签
+// `vod_class` VARCHAR ( 255 ) NOT NULL DEFAULT '', // 扩展分类
+// `vod_pic` VARCHAR ( 1024 ) NOT NULL DEFAULT '', // 图片
+// `vod_pic_thumb` VARCHAR ( 1024 ) NOT NULL DEFAULT '', // 缩略图
+// `vod_pic_slide` VARCHAR ( 1024 ) NOT NULL DEFAULT '', // 幻灯图
+// `vod_actor` VARCHAR ( 255 ) NOT NULL DEFAULT '', // 主演
+// `vod_director` VARCHAR ( 255 ) NOT NULL DEFAULT '', // 导演
+// `vod_writer` VARCHAR ( 100 ) NOT NULL DEFAULT '', // 编剧
+// `vod_blurb` VARCHAR ( 255 ) NOT NULL DEFAULT '', // 简介
+// `vod_remarks` VARCHAR ( 100 ) NOT NULL DEFAULT '', // 备注
+// `vod_pubdate` VARCHAR ( 100 ) NOT NULL DEFAULT '', // 上映日期 
+// `vod_total` MEDIUMINT ( 8 ) UNSIGNED NOT NULL DEFAULT '0',  // 总集数
+// `vod_serial` VARCHAR ( 20 ) NOT NULL DEFAULT '0', // 连载状态
+// `vod_weekday` VARCHAR ( 30 ) NOT NULL DEFAULT '', // 上映时间
+// `vod_state` VARCHAR ( 30 ) NOT NULL DEFAULT '', // 状态
+// `vod_level` TINYINT ( 1 ) UNSIGNED NOT NULL DEFAULT '0', // 推荐位 
+// `vod_copyright` TINYINT ( 1 ) UNSIGNED NOT NULL DEFAULT '0', // 版权
+// `vod_hits` MEDIUMINT ( 8 ) UNSIGNED NOT NULL DEFAULT '0', // 总点击数
+// `vod_hits_day` MEDIUMINT ( 8 ) UNSIGNED NOT NULL DEFAULT '0', // 日点击数
+// `vod_hits_week` MEDIUMINT ( 8 ) UNSIGNED NOT NULL DEFAULT '0', // 周点击数
+// `vod_hits_month` MEDIUMINT ( 8 ) UNSIGNED NOT NULL DEFAULT '0', // 月点击数
+// `vod_duration` VARCHAR ( 10 ) NOT NULL DEFAULT '', // 时长
+// `vod_time` INT ( 10 ) UNSIGNED NOT NULL DEFAULT '0', // 时间
+// `vod_time_add` INT ( 10 ) UNSIGNED NOT NULL DEFAULT '0', // 添加时间
+// `vod_douban_id` INT ( 10 ) UNSIGNED NOT NULL DEFAULT '0', // 豆瓣ID
+// `vod_douban_score` DECIMAL ( 3, 1 ) UNSIGNED NOT NULL DEFAULT '0.0', // 豆瓣评分
+// `vod_play_from` VARCHAR ( 255 ) NOT NULL DEFAULT '', // 播放来源
+// `vod_play_url` MEDIUMTEXT NOT NULL, // 播放地址
+
+// PRIMARY KEY (`vod_id`),
+// KEY `type_id` (`type_id`) USING BTREE,
+// KEY `vod_level` (`vod_level`) USING BTREE,
+// KEY `vod_hits` (`vod_hits`) USING BTREE,
+// KEY `vod_letter` (`vod_letter`) USING BTREE,
+// KEY `vod_name` (`vod_name`) USING BTREE,
+// KEY `vod_tag` (`vod_tag`) USING BTREE,
+// KEY `vod_class` (`vod_class`) USING BTREE,
+// KEY `group_id` (`group_id`) USING BTREE,
+// KEY `vod_time_add` (`vod_time_add`) USING BTREE,
+// KEY `vod_time` (`vod_time`) USING BTREE,
+// KEY `vod_actor` (`vod_actor`) USING BTREE,
+// KEY `vod_director` (`vod_director`) USING BTREE,
+// KEY `vod_total` (`vod_total`) USING BTREE,
+// KEY `vod_state` (`vod_state`),
+// KEY `vod_en` (`vod_en`) USING BTREE,
+// KEY `vod_hits_day` (`vod_hits_day`) USING BTREE,
+// KEY `vod_hits_week` (`vod_hits_week`) USING BTREE,
+// KEY `vod_hits_month` (`vod_hits_month`) USING BTREE
+
+// ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;

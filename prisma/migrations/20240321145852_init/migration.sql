@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE `type` MODIFY `type_status` INTEGER NOT NULL DEFAULT 0,
+    MODIFY `type_rank` INTEGER NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE `vod` MODIFY `group_id` INTEGER NOT NULL DEFAULT 1,
+    MODIFY `vod_status` INTEGER NOT NULL DEFAULT 0;

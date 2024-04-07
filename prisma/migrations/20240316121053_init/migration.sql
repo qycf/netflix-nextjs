@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `user` ALTER COLUMN `login_ip` DROP DEFAULT,
+    ALTER COLUMN `reg_ip` DROP DEFAULT;

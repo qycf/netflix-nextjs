@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qu2u.mapper.TradeMapper">
+
+    <resultMap id="BaseResultMap" type="com.qu2u.domain.Trade">
+            <id property="tradeId" column="trade_id" jdbcType="INTEGER"/>
+            <result property="tradeName" column="trade_name" jdbcType="VARCHAR"/>
+            <result property="tradeMoney" column="trade_money" jdbcType="DECIMAL"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="tradeNo" column="trade_no" jdbcType="VARCHAR"/>
+            <result property="outTradeNo" column="out_trade_no" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
+            <result property="tradeStatus" column="trade_status" jdbcType="VARCHAR"/>
+            <result property="payMethod" column="pay_method" jdbcType="VARCHAR"/>
+            <result property="requestIp" column="request_ip" jdbcType="VARCHAR"/>
+            <result property="paymentPlatform" column="payment_platform" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        trade_id,trade_name,trade_money,
+        user_id,trade_no,out_trade_no,
+        create_time,pay_time,trade_status,
+        pay_method,request_ip,payment_platform
+    </sql>
+</mapper>

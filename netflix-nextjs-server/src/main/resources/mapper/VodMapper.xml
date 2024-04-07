@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qu2u.mapper.VodMapper">
+
+    <resultMap id="BaseResultMap" type="com.qu2u.domain.Vod">
+        <id property="vodId" column="vod_id" jdbcType="INTEGER"/>
+        <result property="typeId" column="type_id" jdbcType="INTEGER"/>
+        <result property="groupId" column="group_id" jdbcType="INTEGER"/>
+        <result property="vodName" column="vod_name" jdbcType="VARCHAR"/>
+        <result property="vodSub" column="vod_sub" jdbcType="VARCHAR"/>
+        <result property="vodEn" column="vod_en" jdbcType="VARCHAR"/>
+        <result property="vodStatus" column="vod_status" jdbcType="INTEGER"/>
+        <result property="vodTag" column="vod_tag" jdbcType="VARCHAR"/>
+        <result property="vodClass" column="vod_class" jdbcType="VARCHAR"/>
+        <result property="vodPic" column="vod_pic" jdbcType="VARCHAR"/>
+        <result property="vodPicThumb" column="vod_pic_thumb" jdbcType="VARCHAR"/>
+        <result property="vodPicSlide" column="vod_pic_slide" jdbcType="VARCHAR"/>
+        <result property="vodActor" column="vod_actor" jdbcType="VARCHAR"/>
+        <result property="vodDirector" column="vod_director" jdbcType="VARCHAR"/>
+        <result property="vodWriter" column="vod_writer" jdbcType="VARCHAR"/>
+        <result property="vodBlurb" column="vod_blurb" jdbcType="VARCHAR"/>
+        <result property="vodRemarks" column="vod_remarks" jdbcType="VARCHAR"/>
+        <result property="vodPubdate" column="vod_pubdate" jdbcType="VARCHAR"/>
+        <result property="vodState" column="vod_state" jdbcType="VARCHAR"/>
+        <result property="vodLevel" column="vod_level" jdbcType="INTEGER"/>
+        <result property="vodCopyright" column="vod_copyright" jdbcType="INTEGER"/>
+        <result property="vodHits" column="vod_hits" jdbcType="INTEGER"/>
+        <result property="vodHitsDay" column="vod_hits_day" jdbcType="INTEGER"/>
+        <result property="vodHitsWeek" column="vod_hits_week" jdbcType="INTEGER"/>
+        <result property="vodHitsMonth" column="vod_hits_month" jdbcType="INTEGER"/>
+        <result property="vodDuration" column="vod_duration" jdbcType="VARCHAR"/>
+        <result property="vodTime" column="vod_time" jdbcType="INTEGER"/>
+        <result property="vodTimeAdd" column="vod_time_add" jdbcType="INTEGER"/>
+        <result property="vodDoubanId" column="vod_douban_id" jdbcType="INTEGER"/>
+        <result property="vodDoubanScore" column="vod_douban_score" jdbcType="DECIMAL"/>
+        <result property="vodPlayFrom" column="vod_play_from" jdbcType="VARCHAR"/>
+        <result property="vodPlayUrl" column="vod_play_url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        vod_id
+        ,type_id,group_id,
+        vod_name,vod_sub,vod_en,
+        vod_status,vod_tag,vod_class,
+        vod_pic,vod_pic_thumb,vod_pic_slide,
+        vod_actor,vod_director,vod_writer,
+        vod_blurb,vod_remarks,vod_pubdate,
+        vod_state,vod_level,vod_copyright,
+        vod_hits,vod_hits_day,vod_hits_week,
+        vod_hits_month,vod_duration,vod_time,
+        vod_time_add,vod_douban_id,vod_douban_score,
+        vod_play_from,vod_play_url
+    </sql>
+    <select id="listVodByType" resultType="com.qu2u.model.VodResp">
+        SELECT v.vod_id,
+               v.type_id,
+               v.group_id,
+               t.type_name,
+               v.vod_name,
+               v.vod_sub,
+               v.vod_en,
+               v.vod_status,
+               v.vod_tag,
+               v.vod_class,
+               v.vod_pic,
+               v.vod_pic_thumb,
+               v.vod_pic_slide,
+               v.vod_actor,
+               v.vod_director,
+               v.vod_writer,
+               v.vod_blurb,
+               v.vod_remarks,
+               v.vod_pubdate,
+               v.vod_state,
+               v.vod_level,
+               v.vod_copyright,
+               v.vod_hits,
+               v.vod_hits_day,
+               v.vod_hits_week,
+               v.vod_hits_month,
+               v.vod_duration,
+               v.vod_time,
+               v.vod_time_add,
+               v.vod_douban_id,
+               v.vod_douban_score,
+               v.vod_play_from,
+               v.vod_play_url
+        FROM vod v
+                 INNER JOIN type t ON v.type_id = t.type_id
+        WHERE v.type_id = #{typeId}
+        order by v.vod_time desc;
+
+
+    </select>
+    <select id="VodRespListQuery" resultType="com.qu2u.model.VodResp">
+        SELECT
+        v.vod_id,
+        v.type_id,
+        v.group_id,
+        t.type_name,
+        v.vod_name,
+        v.vod_sub,
+        v.vod_en,
+        v.vod_status,
+        v.vod_tag,
+        v.vod_class,
+        v.vod_pic,
+        v.vod_pic_thumb,
+        v.vod_pic_slide,
+        v.vod_actor,
+        v.vod_director,
+        v.vod_writer,
+        v.vod_blurb,
+        v.vod_remarks,
+        v.vod_pubdate,
+        v.vod_state,
+        v.vod_level,
+        v.vod_copyright,
+        v.vod_hits,
+        v.vod_hits_day,
+        v.vod_hits_week,
+        v.vod_hits_month,
+        v.vod_duration,
+        v.vod_time,
+        v.vod_time_add,
+        v.vod_douban_id,
+        v.vod_douban_score,
+        v.vod_play_from,
+        v.vod_play_url
+        FROM
+        vod v
+        INNER JOIN type t ON v.type_id = t.type_id
+        <where>
+            <if test="typeId != null">
+                AND v.type_id = #{typeId}
+            </if>
+            <if test="vodName != null and vodName != ''">
+                AND v.vod_name LIKE CONCAT('%', #{vodName}, '%')
+            </if>
+            <if test="vodLevel != null">
+                AND v.vod_level = #{vodLevel}
+            </if>
+            <if test="vodStatus != null">
+                AND v.vod_status = #{vodStatus}
+            </if>
+        </where>
+        ORDER BY v.vod_time DESC
+
+    </select>
+    <select id="getVodByFiltersWithPaged" resultType="com.qu2u.model.VodResp">
+        SELECT
+        v.vod_id,
+        v.type_id,
+        v.group_id,
+        t.type_name,
+        t.type_slug,
+        v.vod_name,
+        v.vod_sub,
+        v.vod_en,
+        v.vod_status,
+        v.vod_tag,
+        v.vod_class,
+        v.vod_pic,
+        v.vod_pic_thumb,
+        v.vod_pic_slide,
+        v.vod_actor,
+        v.vod_director,
+        v.vod_writer,
+        v.vod_blurb,
+        v.vod_remarks,
+        v.vod_pubdate,
+        v.vod_state,
+        v.vod_level,
+        v.vod_copyright,
+        v.vod_hits,
+        v.vod_hits_day,
+        v.vod_hits_week,
+        v.vod_hits_month,
+        v.vod_duration,
+        v.vod_time,
+        v.vod_time_add,
+        v.vod_douban_id,
+        v.vod_douban_score,
+        v.vod_play_from,
+        v.vod_play_url
+        FROM
+        vod v
+        INNER JOIN type t ON v.type_id = t.type_id
+        <where>
+            <if test="typeId != null">
+                AND v.type_id = #{typeId}
+            </if>
+            <if test="vodName != null and vodName != ''">
+                AND v.vod_name LIKE CONCAT('%', #{vodName}, '%')
+            </if>
+            <if test="vodLevel != null">
+                AND v.vod_level = #{vodLevel}
+            </if>
+            <if test="vodStatus != null">
+                AND v.vod_status = #{vodStatus}
+            </if>
+        </where>
+        ORDER BY v.vod_time_add DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qu2u.mapper.PaymentsMapper">
+
+    <resultMap id="BaseResultMap" type="com.qu2u.domain.Payments">
+            <id property="paymentId" column="payment_id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="paymentUrl" column="payment_url" jdbcType="VARCHAR"/>
+            <result property="payMethod" column="pay_method" jdbcType="VARCHAR"/>
+            <result property="pid" column="pid" jdbcType="INTEGER"/>
+            <result property="epayKey" column="epay_key" jdbcType="VARCHAR"/>
+            <result property="paymentStatus" column="payment_status" jdbcType="INTEGER"/>
+            <result property="paymentPlatform" column="payment_platform" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        payment_id,name,payment_url,
+        pay_method,pid,epay_key,
+        payment_status,payment_platform
+    </sql>
+</mapper>

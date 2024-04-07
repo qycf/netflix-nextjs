@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `user` MODIFY `group_id` SMALLINT UNSIGNED NOT NULL DEFAULT 1;

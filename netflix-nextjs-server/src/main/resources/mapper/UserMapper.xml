@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qu2u.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.qu2u.domain.User">
+        <id property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="groupId" column="group_id" jdbcType="SMALLINT"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
+        <result property="loginIp" column="login_ip" jdbcType="VARCHAR"/>
+        <result property="loginTime" column="login_time" jdbcType="TIMESTAMP"/>
+        <result property="lastLoginIp" column="last_login_ip" jdbcType="VARCHAR"/>
+        <result property="lastLoginTime" column="last_login_time" jdbcType="TIMESTAMP"/>
+        <result property="regIp" column="reg_ip" jdbcType="VARCHAR"/>
+        <result property="regTime" column="reg_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+                user_id, group_id, username,
+                password, email, status,
+                login_ip, login_time,
+                last_login_ip, last_login_time, reg_ip,
+                reg_time
+    </sql>
+    <select id="selectGroupTypeByUserId" resultType="java.lang.String">
+        SELECT ug.group_type
+        FROM user u
+                 LEFT JOIN user_group ug ON u.group_id = ug.group_id
+        WHERE u.user_id = #{userId}
+    </select>
+
+    <select id="getUserByFiltersWithPaged" resultType="com.qu2u.model.UserResp">
+        -- IPage getUserByFiltersWithPaged(IPage page, String username, String email, Integer status, String groupId);
+
+        select u.*, ug.group_name ,ug.group_type
+        from
+        user u
+        left join user_group ug on u.group_id = ug.group_id
+        <where>
+            <if test="username != null and username != ''">
+                AND u.username LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test="email != null and email != ''">
+                AND u.email LIKE CONCAT('%', #{email}, '%')
+            </if>
+            <if test="status != null">
+                AND u.status = #{status}
+            </if>
+            <if test="groupId != null and groupId != ''">
+                AND ug.group_id = #{groupId}
+            </if>
+
+        </where>
+
+
+        <!--        select * from user-->
+        <!--        <where>-->
+        <!--            <if test="username != null and username != ''">-->
+        <!--                AND username LIKE CONCAT('%', #{username}, '%')-->
+        <!--            </if>-->
+        <!--            <if test="email != null and email != ''">-->
+        <!--                AND email LIKE CONCAT('%', #{email}, '%')-->
+        <!--            </if>-->
+        <!--            <if test="status != null">-->
+        <!--                AND status = #{status}-->
+        <!--            </if>-->
+        <!--        </where>-->
+        <!--        order by reg_time desc-->
+
+    </select>
+
+</mapper>

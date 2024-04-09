@@ -59,7 +59,8 @@ public class UserController {
     @Operation(summary = "新增/更新用户")
     public boolean add(@RequestBody User user, HttpServletRequest request) {
 
-        if (user.getPassword().isEmpty()) {
+
+        if ("".equals(user.getPassword())){
             user.setPassword(null);
         }
 

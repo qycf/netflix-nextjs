@@ -59,3 +59,27 @@ export const getVodDetail = async (vodId) => {
     } catch (e) {
     }
 }
+
+
+export const favorites = async (vodId) => {
+    try {
+        const res = await fetch(`/api/vod/favorites?vodId=${vodId}`, {
+            method: "POST",
+        });
+        const data = await res.json();
+        return data;
+    } catch (e) {
+    }
+}
+
+
+export const favoritesList = async () => {
+    try {
+        const res = await fetch(`/api/vod/favorites`, {
+            method: "GET",
+        });
+        const data = await res.json();
+        return data;
+    } catch (e) {
+    }
+}

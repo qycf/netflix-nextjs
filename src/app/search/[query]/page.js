@@ -1,20 +1,18 @@
 "use client";
 
 import CircleLoader from "@/components/circle-loader";
-import ManageAccounts from "@/components/manage-accounts";
 import UnauthPage from "@/components/unauth-page";
 import { GlobalContext } from "@/context";
-import { getAllfavorites, getTVorMovieSearchResults } from "@/utils";
+import { getVodList } from "@/utils";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useContext, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/navbar";
-import MediaItem from "@/components/media-item/index c";
+import MediaItem from "@/components/media-item/index";
 
 export default function Search() {
   const {
-    loggedInAccount,
     searchResults,
     pageLoader,
     setPageLoader,
@@ -25,51 +23,57 @@ export default function Search() {
   const params = useParams();
 
   useEffect(() => {
-    async function getSearchResults() {
-      const tvShows = await getTVorMovieSearchResults("tv", params.query);
-      const movies = await getTVorMovieSearchResults("movie", params.query);
-      const allFavorites = await getAllfavorites(
-        session?.user?.uid,
-        loggedInAccount?._id
-      );
-      setSearchResults([
-        ...tvShows
-          .filter(
-            (item) => item.backdrop_path !== null && item.poster_path !== null
-          )
-          .map((tvShowItem) => ({
-            ...tvShowItem,
-            type: "tv",
-            addedToFavorites:
-              allFavorites && allFavorites.length
-                ? allFavorites
-                  .map((fav) => fav.movieID)
-                  .indexOf(tvShowItem.id) > -1
-                : false,
-          })),
-        ...movies
-          .filter(
-            (item) => item.backdrop_path !== null && item.poster_path !== null
-          )
-          .map((movieItem) => ({
-            ...movieItem,
-            type: "movie",
-            addedToFavorites:
-              allFavorites && allFavorites.length
-                ? allFavorites.map((fav) => fav.movieID).indexOf(movieItem.id) >
-                -1
-                : false,
-          })),
-      ]);
-      setPageLoader(false);
+    // async function getSearchResults() {
+    //   const tvShows = await getTVorMovieSearchResults("tv", params.query);
+    //   const movies = await getTVorMovieSearchResults("movie", params.query);
+    //   const allFavorites = await getAllfavorites(
+    //     session?.user?.uid,
+    //     loggedInAccount?._id
+    //   );
+    //   setSearchResults([
+    //     ...tvShows
+    //       .filter(
+    //         (item) => item.backdrop_path !== null && item.poster_path !== null
+    //       )
+    //       .map((tvShowItem) => ({
+    //         ...tvShowItem,
+    //         type: "tv",
+    //         addedToFavorites:
+    //           allFavorites && allFavorites.length
+    //             ? allFavorites
+    //               .map((fav) => fav.movieID)
+    //               .indexOf(tvShowItem.id) > -1
+    //             : false,
+    //       })),
+    //     ...movies
+    //       .filter(
+    //         (item) => item.backdrop_path !== null && item.poster_path !== null
+    //       )
+    //       .map((movieItem) => ({
+    //         ...movieItem,
+    //         type: "movie",
+    //         addedToFavorites:
+    //           allFavorites && allFavorites.length
+    //             ? allFavorites.map((fav) => fav.movieID).indexOf(movieItem.id) >
+    //             -1
+    //             : false,
+    //       })),
+    //   ]);
+    //   setPageLoader(false);
 
+    // }
+
+    async function getSearchResults() {
+      const res = await getVodList("", "", "0", params.query, "", "1", 999);
+      console.log(res);
+      setSearchResults(res.records);
+      setPageLoader(false);
     }
 
     getSearchResults();
-  }, [loggedInAccount]);
+  }, []);
 
   if (session === null) return <UnauthPage />;
-  if (loggedInAccount === null) return <ManageAccounts />;
   if (pageLoader) return <CircleLoader />;
 
   return (
@@ -85,9 +89,9 @@ export default function Search() {
         </h2>
         <div className="grid grid-cols-5 gap-3 items-center scrollbar-hide md:p-2">
           {searchResults && searchResults.length
-            ? searchResults.map((searchItem) => (
+            ? searchResults.map((searchItem, index) => (
               <MediaItem
-                key={searchItem.id}
+                key={index}
                 media={searchItem}
                 searchView={true}
               />

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qu2u.mapper.UserFavoritesMapper">
+
+    <resultMap id="BaseResultMap" type="com.qu2u.domain.UserFavorites">
+            <id property="favoriteId" column="favorite_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="vodId" column="vod_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        favorite_id,user_id,vod_id
+    </sql>
+
+    <select id="listUserFavoritesByUserId" resultType="com.qu2u.domain.Vod">
+        SELECT
+               v.*
+        FROM user_favorites f
+        LEFT JOIN vod v ON f.vod_id = v.vod_id
+        WHERE f.user_id = #{userId}
+    </select>
+
+</mapper>

@@ -12,6 +12,7 @@ import {
   MuteButton,
   Poster
 } from '@vidstack/react';
+import { favorites } from "@/utils/VodReq";
 
 
 export default function MediaItem(Prop) {
@@ -163,19 +164,6 @@ export default function MediaItem(Prop) {
                   <h2 className="absolute bottom-1 left-1 font-bold">
                     {media.vodName}
                   </h2>
-
-                  {/* <img
-                    className={`${video ? "opacity-100" : "opacity-0"
-                      } transition-opacity duration-300 object-cover w-full h-full`}
-                    src={media.vodPic}
-                    muted={muted || mutedProp}
-
-                  />
-                  {mutedProp || muted ? (
-                    <VolumeOffIcon onClick={toggleMute} />
-                  ) : (
-                    <VolumeHigh onClick={toggleMute} />
-                  )} */}
                 </div>
 
                 <img
@@ -196,8 +184,7 @@ export default function MediaItem(Prop) {
               >
                 <div className="flex mb-2">
                   <div className="flex gap-2">
-                    <PlusIcon />
-                    <PlusIcon />
+                    <PlusIcon vodId={media?.vodId} />
                     <LikeIcon />
                   </div>
                   <div className="ml-auto">
@@ -258,8 +245,15 @@ export const PlayIcon = () => (
   </div>
 );
 
-export const PlusIcon = () => (
-  <div className="flex items-center justify-center p-[6px] rounded-full text-white bg-[#2a2a2a99] border-2 border-[#ffffff80]">
+export const PlusIcon = ({ vodId }) => (
+  <button
+    onClick={async () => {
+      const data = await favorites(vodId);
+      if (data.success) {
+
+      }
+    }}
+    className="flex items-center justify-center p-[6px] rounded-full text-white bg-[#2a2a2a99] border-2 border-[#ffffff80]">
     <svg
       width="10"
       height="10"
@@ -276,11 +270,11 @@ export const PlusIcon = () => (
         fill="currentColor"
       ></path>
     </svg>
-  </div>
+  </button>
 );
 
 export const LikeIcon = () => (
-  <div className="flex items-center justify-center p-[6px] rounded-full text-white bg-[#2a2a2a99] border-2 border-[#ffffff80]">
+  <button className="flex items-center justify-center p-[6px] rounded-full text-white bg-[#2a2a2a99] border-2 border-[#ffffff80]">
     <svg
       width="10"
       height="10"
@@ -295,11 +289,11 @@ export const LikeIcon = () => (
         fill="currentColor"
       ></path>
     </svg>
-  </div>
+  </button>
 );
 
 export const ExpandIcon = ({ onClick }) => (
-  <div
+  <button
     onClick={onClick}
     className="flex items-center justify-center p-[6px] rounded-full text-white bg-[#2a2a2a99] border-2 border-[#ffffff80]">
     <svg
@@ -316,7 +310,7 @@ export const ExpandIcon = ({ onClick }) => (
         fill="currentColor"
       ></path>
     </svg>
-  </div>
+  </button>
 );
 
 export const VolumeOffIcon = ({ onClick }) => (

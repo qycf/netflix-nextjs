@@ -329,8 +329,8 @@ function UserManage() {
                         options={
                             [
                                 { label: '选择状态', value: "" },
-                                { label: '正常', value: 1 },
-                                { label: '锁定', value: 0 },
+                                { label: '正常', value: 0 },
+                                { label: '锁定', value: 1 },
                             ]
                         }
                     >

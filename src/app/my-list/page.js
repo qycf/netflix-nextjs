@@ -1,16 +1,16 @@
 "use client";
 
 import { GlobalContext } from "@/context";
-import { getAllfavorites } from "@/utils";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/navbar";
-import MediaItem from "@/components/media-item/index c";
+import MediaItem from "@/components/media-item/";
 import CircleLoader from "@/components/circle-loader";
 import UnauthPage from "@/components/unauth-page";
-import ManageAccounts from "@/components/manage-accounts";
+import { getVodList } from "@/utils/";
+import { favoritesList } from "@/utils/VodReq";
 
 export default function MyList() {
   const {
@@ -20,29 +20,20 @@ export default function MyList() {
     setPageLoader,
     loggedInAccount,
   } = useContext(GlobalContext);
+
+
   const { data: session } = useSession();
 
   useEffect(() => {
-    async function extractFavorites() {
-      const data = await getAllfavorites(
-        session?.user?.uid,
-        loggedInAccount?._id
-      );
-
-
-      if (data) {
-        setFavorites(data.map(item => ({
-          ...item, addedToFavorites: true
-        })));
-        setPageLoader(false);
-      }
+    async function getAllMedias() {
+      const scifiVods = await favoritesList();
+      setFavorites(scifiVods.data);
+      setPageLoader(false);
     }
-
-    extractFavorites();
-  }, [loggedInAccount]);
+    getAllMedias();
+  }, []);
 
   if (session === null) return <UnauthPage />;
-  if (loggedInAccount === null) return <ManageAccounts />;
   if (pageLoader) return <CircleLoader />;
 
   return (
@@ -58,9 +49,9 @@ export default function MyList() {
         </h2>
         <div className="grid grid-cols-5 gap-3 items-center scrollbar-hide md:p-2">
           {favorites && favorites.length
-            ? favorites.map((searchItem) => (
+            ? favorites.map((searchItem, index) => (
               <MediaItem
-                key={searchItem.id}
+                key={index}
                 media={searchItem}
                 listView={true}
               />

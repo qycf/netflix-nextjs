@@ -20,13 +20,8 @@ function UserMenu(
             path: "/accounts"
         },
         {
-            name: "设置",
-            path: "/settings"
-
-        },
-        {
-            name: "帮助",
-            // path: "/help"
+            name: "收藏",
+            path: "/my-list"
 
         },
         {

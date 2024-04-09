@@ -14,6 +14,7 @@ import {
   MediaPlayer,
   MediaProvider,
   isHLSProvider,
+  Poster,
 } from '@vidstack/react';
 
 export default function DetailsPopup({ show, setShow }) {
@@ -125,7 +126,12 @@ export default function DetailsPopup({ show, setShow }) {
               autoPlay
             // clipStartTime={300}
             >
-              <MediaProvider />
+              <MediaProvider >
+                <Poster
+                  className="absolute inset-0 block h-full w-full rounded-md opacity-0 transition-opacity data-[visible]:opacity-100 object-cover"
+                  src={mediaDetails?.vodPic}
+                />
+              </MediaProvider>
               {/* <MuteButton className="z-50 group ring-sky-400 absolute bottom-0 right-0 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset  data-[focus]:ring-4">
                 <div className="w-8 h-8 hidden group-data-[state='muted']:block" >
                   <VolumeOffIcon />

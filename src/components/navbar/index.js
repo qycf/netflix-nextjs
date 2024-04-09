@@ -81,7 +81,7 @@ export default function Navbar() {
             } className="text-[16px] font-light text-[#e5e5e5] transition duration-[.4s] hover:text-[#b3b3b3]">
               首页
             </li>
-            {typeList.map((item) => (
+            {typeList && typeList.map((item) => (
               <li
                 onClick={() => {
                   setPageLoader(true);

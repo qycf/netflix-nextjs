@@ -4,7 +4,7 @@ import CircleLoader from "@/components/circle-loader";
 import { GlobalContext } from "@/context";
 import { useParams } from "next/navigation";
 import { useContext, useEffect, useState, useRef } from "react";
-import { getVodDetail } from "@/utils/VodReq";
+import { getVodDetail, watchHistory } from "@/utils/VodReq";
 
 import {
     isHLSProvider,
@@ -50,6 +50,9 @@ export default function Player({ vodId, vod }) {
         async function getMediaDetails() {
 
             const vod = await getVodDetail(vodId)
+
+            await watchHistory(vodId);
+
             setMediaDetails(vod);
             setPageLoader(false);
         }

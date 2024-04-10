@@ -10,7 +10,7 @@
   }
 
   100% {
-    transform: scale(1.8) translateY(-20px);
+    transform: scale(1.5) translateY(-20px);
     /* opacity: 100%; */
   }
 }

@@ -19,6 +19,8 @@ export default function MediaItem(Prop) {
   {
 
     const { media, toggleMuteProp, mutedProp, timeoutRef } = Prop;
+
+
     const player = useRef(null);
 
     function onProviderChange(provider) {
@@ -50,6 +52,7 @@ export default function MediaItem(Prop) {
     const ref = useRef(null);
 
     let timerId = null;
+
     const onMouseEnter = (e) => {
       timerId = setTimeout(() => {
         player.current?.startLoading();
@@ -184,7 +187,7 @@ export default function MediaItem(Prop) {
               >
                 <div className="flex mb-2">
                   <div className="flex gap-2">
-                    <PlusIcon vodId={media?.vodId} />
+                    <Favorite media={media} />
                     <LikeIcon />
                   </div>
                   <div className="ml-auto">
@@ -199,7 +202,7 @@ export default function MediaItem(Prop) {
                 </div>
                 <div className="my-3 flex flex-col">
                   <span className="text-[10px] pb-2 text-[#46d369] font-medium">
-                    98% Match
+                    98% Match {media?.isFavorite}
                   </span>
                   <div className="flex gap-2 items-center pb-2">
                     <p className="px-[6px] rounded-sm text-[#bcbcbc] text-[10px] uppercase border leading-[19.2px] border-[#ffffff66]">
@@ -245,33 +248,6 @@ export const PlayIcon = () => (
   </div>
 );
 
-export const PlusIcon = ({ vodId }) => (
-  <button
-    onClick={async () => {
-      const data = await favorites(vodId);
-      if (data.success) {
-
-      }
-    }}
-    className="flex items-center justify-center p-[6px] rounded-full text-white bg-[#2a2a2a99] border-2 border-[#ffffff80]">
-    <svg
-      width="10"
-      height="10"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      data-name="Plus"
-      aria-hidden="true"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M11 11V2H13V11H22V13H13V22H11V13H2V11H11Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </button>
-);
 
 export const LikeIcon = () => (
   <button className="flex items-center justify-center p-[6px] rounded-full text-white bg-[#2a2a2a99] border-2 border-[#ffffff80]">
@@ -355,4 +331,62 @@ export const VolumeHigh = ({ onClick }) => (
       ></path>
     </svg>
   </div>
+);
+
+
+export const Favorite = ({ media }) => {
+
+
+  const [favorite, setFavorite] = useState(media.isFavorite);
+
+  const clickFavorites = async () => {
+    const data = await favorites(media.vodId);
+    media.isFavorite = data.isFavorite;
+    setFavorite(data.isFavorite);
+  }
+
+  return (
+    <button
+      className="flex items-center justify-center p-[6px] rounded-full text-white bg-[#2a2a2a99] border-2 border-[#ffffff80]"
+      onClick={clickFavorites}
+    >
+      {favorite === 1 ? <CheckedIcon /> : <PlusIcon />}
+    </button>
+  );
+}
+
+
+const CheckedIcon = () => (<svg
+  width="10"
+  height="10"
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-name="Plus"
+  aria-hidden="true"
+>
+  <path d="M4 12.6111L8.92308 17.5L20 6.5" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"></path>
+</svg>)
+
+
+
+
+export const PlusIcon = () => (
+
+  <svg
+    width="10"
+    height="10"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    data-name="Plus"
+    aria-hidden="true"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M11 11V2H13V11H22V13H13V22H11V13H2V11H11Z"
+      fill="currentColor"
+    ></path>
+  </svg>
 );

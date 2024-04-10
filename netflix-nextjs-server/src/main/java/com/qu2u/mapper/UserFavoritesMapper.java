@@ -1,8 +1,9 @@
 package com.qu2u.mapper;
 
-import com.qu2u.domain.UserFavorites;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.qu2u.domain.Vod;
+import com.qu2u.domain.RankingFavorites;
+import com.qu2u.domain.UserFavorites;
+import com.qu2u.model.VodResp;
 
 import java.util.List;
 
@@ -15,7 +16,9 @@ import java.util.List;
 public interface UserFavoritesMapper extends BaseMapper<UserFavorites> {
 
 
-    List<Vod> listUserFavoritesByUserId(Integer userId);
+    List<VodResp> listUserFavoritesByUserId(Integer userId);
+
+    List<RankingFavorites> rankingFavorites();
 }
 
 

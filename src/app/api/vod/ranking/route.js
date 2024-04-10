@@ -1,12 +1,19 @@
+
+
 import { NextResponse } from "next/server";
 import apiFetch from '@/utils/request';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic'
 
 export async function GET(req) {
+
     try {
-        const { data } = await apiFetch('/vod/level', {
-            method: 'get',
+        const { searchParams } = new URL(req.url)
+
+        const rankingType = searchParams.get('rankingType')
+
+        const { data } = await apiFetch(`/vod/ranking?rankingType=${rankingType}`, {
+            method: 'GET',
         });
 
         if (data.code === 200) {
@@ -18,12 +25,12 @@ export async function GET(req) {
 
         return NextResponse.json({
             success: false,
-            message: data.message,
+            message: "data.message",
         });
     } catch (e) {
         return NextResponse.json({
             success: false,
-            message: "Something Went wrong",
+            message: "Something Went wrong e e e ",
         });
     }
 }

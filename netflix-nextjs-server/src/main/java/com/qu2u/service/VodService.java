@@ -1,7 +1,11 @@
 package com.qu2u.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qu2u.domain.Vod;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qu2u.model.VodResp;
 
 import java.util.List;
 
@@ -12,5 +16,8 @@ import java.util.List;
  */
 public interface VodService extends IService<Vod> {
 
+
+
+    List<Vod> hitsRank();
 
 }

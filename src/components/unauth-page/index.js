@@ -320,7 +320,7 @@ function UnauthBanner({
         >
           <div className="flex items-center justify-between ">
             <img
-              src="https://rb.gy/ulxxee"
+              src="https://qu2u-com-1305976148.cos.ap-guangzhou.myqcloud.com/Netflix_2015_logo.svg"
               alt="netflix"
               width={120}
               height={120}

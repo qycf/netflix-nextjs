@@ -5,20 +5,27 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 import lombok.Data;
 
 /**
  * 
- * @TableName user_favorites
+ * @TableName watch_history
  */
-@TableName(value ="user_favorites")
+@TableName(value ="watch_history")
 @Data
-public class UserFavorites implements Serializable {
+public class WatchHistory implements Serializable {
     /**
      * 
      */
     @TableId(type = IdType.AUTO)
-    private Integer favoriteId;
+    private Integer watchId;
+
+    /**
+     * 
+     */
+    private Integer vodId;
 
     /**
      * 
@@ -28,7 +35,7 @@ public class UserFavorites implements Serializable {
     /**
      * 
      */
-    private Integer vodId;
+    private LocalDateTime createTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

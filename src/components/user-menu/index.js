@@ -16,16 +16,20 @@ function UserMenu(
 
     const userMenus = [
         {
-            name: "帐户",
+            name: "帐户设置",
             path: "/accounts"
         },
         {
-            name: "收藏",
-            path: "/my-list"
+            name: "我的收藏",
+            path: "/favorites"
 
         },
         {
-            name: "退出",
+            name: "观看历史",
+            path: "/history"
+        },
+        {
+            name: "退出登录",
             action: () => {
                 setPageLoader(true);
                 signOut();

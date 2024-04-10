@@ -25,7 +25,7 @@ export default function CommonLayout({ mediaData }) {
           medias={mediaData?.levelMovies}
         />
         <Row
-          className="md:space-y-16 mb-[100px]"
+          className="md:space-y-16 mb-[100px] md:!mx-[100px]"
           gutter={{
             xs: 16,
             sm: 16,

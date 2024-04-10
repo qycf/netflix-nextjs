@@ -71,7 +71,6 @@ export default function Browse() {
   const givenTime = new Date(session?.user.planExpirationTime);
   const currentTime = new Date();
 
-  console.log(currentTime < givenTime);
   if (currentTime > givenTime) return <UnauthPage />;
 
   // if (loggedInAccount === null) return <ManageAccounts />;
@@ -79,7 +78,7 @@ export default function Browse() {
 
 
   return (
-    <main className="flex min-h-screen flex-col mb-[100px]">
+    <main className="flex min-h-screen flex-col mb-[100px] ">
       <CommonLayout mediaData={mediaData} />
     </main>
   );

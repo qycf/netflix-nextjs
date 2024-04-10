@@ -1,6 +1,5 @@
 import Player from '@/components/player';
 
-import { getVodDetail } from '@/utils/VodReq';
 import apiFetch from '@/utils/request';
 
 

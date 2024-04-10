@@ -92,4 +92,19 @@ public class TradeController {
 
         return tradeService.list(tradeLambdaQueryWrapper);
     }
+
+
+    @GetMapping("/list/user")
+    @Operation(summary = "获取用户交易订单列表")
+    @SaCheckLogin
+    public Object listUserTrade() {
+
+        LambdaQueryWrapper<Trade> tradeLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        tradeLambdaQueryWrapper.eq(Trade::getUserId, StpUtil.getLoginIdAsInt());
+        tradeLambdaQueryWrapper.eq(Trade::getTradeStatus,"TRADE_SUCCESS");
+        tradeLambdaQueryWrapper.orderByDesc(Trade::getCreateTime);
+        tradeLambdaQueryWrapper.last("limit 10");
+
+        return tradeService.list(tradeLambdaQueryWrapper);
+    }
 }

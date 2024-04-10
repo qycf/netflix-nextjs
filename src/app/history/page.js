@@ -2,32 +2,31 @@
 
 import { GlobalContext } from "@/context";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/navbar";
 import MediaItem from "@/components/media-item/";
 import CircleLoader from "@/components/circle-loader";
 import UnauthPage from "@/components/unauth-page";
-import { getVodList } from "@/utils/";
-import { favoritesList } from "@/utils/VodReq";
+import { getUserWatchHistory } from "@/utils/VodReq";
+import { Col, Row } from "antd";
 
-export default function MyList() {
+export default function Favorites() {
+
   const {
-    favorites,
-    setFavorites,
     pageLoader,
     setPageLoader,
-    loggedInAccount,
   } = useContext(GlobalContext);
 
 
   const { data: session } = useSession();
+  const [watchHistory, setWatchHistory] = useState([]);
 
   useEffect(() => {
     async function getAllMedias() {
-      const scifiVods = await favoritesList();
-      setFavorites(scifiVods.data);
+      const watchHistory = await getUserWatchHistory();
+      setWatchHistory(watchHistory);
       setPageLoader(false);
     }
     getAllMedias();
@@ -43,21 +42,33 @@ export default function MyList() {
       viewport={{ once: true }}
     >
       <Navbar />
-      <div className="mt-[100px] space-y-0.5 md:space-y-2 px-4">
+      <div className="mt-[100px] space-y-0.5 md:space-y-2 px-4 md:!mx-[100px]">
         <h2 className="cursor-pointer text-sm font-semibold text-[#e5e5e5] transition-colors duration-200 hover:text-white md:text-2xl">
-          My List
+          观看历史
         </h2>
-        <div className="grid grid-cols-5 gap-3 items-center scrollbar-hide md:p-2">
-          {favorites && favorites.length
-            ? favorites.map((searchItem, index) => (
-              <MediaItem
-                key={index}
-                media={searchItem}
-                listView={true}
-              />
+        <Row
+          className="mb-[100px] "
+          gutter={{
+            xs: 16,
+            sm: 16,
+            md: 24,
+            lg: 32,
+          }}>
+          {watchHistory && watchHistory.length
+            ? watchHistory.map((item, index) => (
+              <Col key={index} xs={{ span: 12 }} sm={{ span: 6 }} md={{ span: 6 }} lg={{ span: 3 }}  >
+                <MediaItem
+                  key={index}
+                  media={item}
+                  listView={true}
+                />
+                <span className="text-[#888]">
+                  {item.watchTime}
+                </span>
+              </Col>
             ))
             : 'No favorites added'}
-        </div>
+        </Row>
       </div>
     </motion.div>
   );

@@ -67,7 +67,7 @@ export const favorites = async (vodId) => {
             method: "POST",
         });
         const data = await res.json();
-        return data;
+        return data && data.data;
     } catch (e) {
     }
 }
@@ -80,6 +80,29 @@ export const favoritesList = async () => {
         });
         const data = await res.json();
         return data;
+    } catch (e) {
+    }
+}
+
+export const getUserWatchHistory = async () => {
+    try {
+        const res = await fetch(`/api/vod/watch-history`, {
+            method: "GET",
+        });
+        const data = await res.json();
+        return data && data.data;
+    } catch (e) {
+    }
+}
+
+
+export const watchHistory = async (vodId) => {
+    try {
+        const res = await fetch(`/api/vod/watch-history?vodId=${vodId}`, {
+            method: "POST",
+        });
+        const data = await res.json();
+        return data && data.data;
     } catch (e) {
     }
 }

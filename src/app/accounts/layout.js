@@ -26,7 +26,7 @@ export default function AccountsLayout({ children }) {
             >
                 <a href="/" className="flex items-center space-x-2 md:space-x-10">
                     <img
-                        src="https://rb.gy/ulxxee"
+                        src="https://qu2u-com-1305976148.cos.ap-guangzhou.myqcloud.com/Netflix_2015_logo.svg"
                         width={120}
                         height={120}
                         alt="NETFLIX"

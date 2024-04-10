@@ -7,8 +7,18 @@ public class VodResp extends Vod {
 
     private String typeSlug;
 
+    private Integer isFavorite;
+
     public String getTypeSlug() {
         return typeSlug;
+    }
+
+    public Integer getIsFavorite() {
+        return isFavorite;
+    }
+
+    public void setIsFavorite(Integer isFavorite) {
+        this.isFavorite = isFavorite;
     }
 
     public void setTypeSlug(String typeSlug) {

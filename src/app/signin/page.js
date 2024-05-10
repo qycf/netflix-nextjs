@@ -14,9 +14,6 @@ import { Turnstile } from '@marsidev/react-turnstile'
 
 export default function Signin() {
     const {
-        loggedInAccount,
-        mediaData,
-        setMediaData,
         setPageLoader,
         pageLoader,
     } = useContext(GlobalContext);
@@ -108,7 +105,7 @@ export default function Signin() {
                             登录
                         </button>
 
-                        <a className="self-center hover:underline" href="/LoginHelp">忘记密码？</a>
+                        <a className="self-center hover:underline" href="/loginhelp">忘记密码？</a>
                     </div>
 
                     <div className="flex flex-col gap-4">

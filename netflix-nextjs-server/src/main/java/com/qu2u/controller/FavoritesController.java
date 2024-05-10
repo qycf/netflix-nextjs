@@ -29,7 +29,7 @@ public class FavoritesController {
 
     @GetMapping
     @SaCheckLogin
-    public Object list() {
+    public Object listUserFavorites() {
 
         int loginIdAsInt = StpUtil.getLoginIdAsInt();
         List<VodResp> vodResps = userFavoritesMapper.listUserFavoritesByUserId(loginIdAsInt);

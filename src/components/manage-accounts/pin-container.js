@@ -32,7 +32,7 @@ export default function PinContainer({
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              class="svg-icon svg-icon-close ltr-0 e1mhci4z1"
+              className="svg-icon svg-icon-close ltr-0 e1mhci4z1"
               data-name="X"
               aria-hidden="true"
             >

@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { signIn } from "@/services/auth";
-import { GlobalContext } from "@/context";
 
 
 
@@ -39,11 +38,15 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.accessToken = user.token;
         token.user = user.user;
       }
+      if (trigger === "update" && session) {
+        token = session;
+      };
+
       return token;
     },
     async session({ session, token }) {
@@ -51,6 +54,15 @@ export const authOptions = {
         session.accessToken = token.accessToken;
         session.user = token.user;
       }
+
+      if (token.emailVerified !== undefined) {
+        session.emailVerified = token.emailVerified;
+      }
+
+      if (token.emailCode !== undefined) {
+        session.emailCode = token.emailCode;
+      }
+
       return session;
     },
     // async redirect({ url, baseUrl }) {

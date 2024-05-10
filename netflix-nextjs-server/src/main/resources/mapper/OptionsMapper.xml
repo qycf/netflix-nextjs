@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qu2u.mapper.OptionsMapper">
+
+    <resultMap id="BaseResultMap" type="com.qu2u.domain.Options">
+            <id property="optionId" column="option_id" jdbcType="INTEGER"/>
+            <result property="optionName" column="option_name" jdbcType="VARCHAR"/>
+            <result property="optionKey" column="option_key" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        option_id,option_name,option_key
+    </sql>
+</mapper>

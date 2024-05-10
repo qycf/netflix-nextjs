@@ -71,20 +71,18 @@ export default function DetailsPopup({ show, setShow }) {
 
   // 处理格式化播放地址
   const vodPlayUrlChecker = (vodPlayUrl) => {
-    // Split by episodes and flatten the process for both single and multiple episodes.
-    if (!vodPlayUrl) return;
+    if (!vodPlayUrl) {
+      return;
+    }
     const episodes = vodPlayUrl.split("$$$");
     const m3u8Urls = episodes
-      .map(episode => episode.split("#").find(segment => segment.includes(".m3u8")))
-      .filter(Boolean) // Remove any undefined or falsey values
-      .map(m3u8Segment => m3u8Segment.split("$")[1]); // Extract the M3U8 URL
+      .map(episode => episode.split("#").find(segment => segment.includes(".m3u8") || segment.includes(".mp4")))
+      .filter(Boolean)
+      .map(m3u8Segment => m3u8Segment.split("$")[1]);
 
-    // Log and return the first found M3U8 URL, if any.
     if (m3u8Urls.length > 0) {
-
       return m3u8Urls[0];
     }
-
   };
 
   return (
@@ -110,21 +108,12 @@ export default function DetailsPopup({ show, setShow }) {
             <XMarkIcon className="h-6 w-6" />
           </button>
           <div className="relative ">
-            {/* <ReactPlayer
-              url={`https://www.youtube.com/watch?v=${key}`}
-              width={"100%"}
-              height={"100%"}
-              style={{ position: "absolute", top: "0", left: "0" }}
-              playing
-              controls
-            /> */}
             <MediaPlayer
               title="player"
               src={vodPlayUrlChecker(mediaDetails?.vodPlayUrl)}
               onProviderChange={onProviderChange}
               ref={player}
               autoPlay
-            // clipStartTime={300}
             >
               <MediaProvider >
                 <Poster
@@ -132,14 +121,6 @@ export default function DetailsPopup({ show, setShow }) {
                   src={mediaDetails?.vodPic}
                 />
               </MediaProvider>
-              {/* <MuteButton className="z-50 group ring-sky-400 absolute bottom-0 right-0 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset  data-[focus]:ring-4">
-                <div className="w-8 h-8 hidden group-data-[state='muted']:block" >
-                  <VolumeOffIcon />
-                </div>
-                <div className="w-8 h-8 hidden group-data-[state='high']:block">
-                  <VolumeHigh />
-                </div>
-              </MuteButton> */}
             </MediaPlayer>
             <div className="absolute bottom-2 left-2 font-bold text-4xl">
               {mediaDetails?.vodName}
@@ -177,22 +158,22 @@ export default function DetailsPopup({ show, setShow }) {
 
             {
               mediaDetails?.vodDirector && (
-                <DetailItem label="导演" content={mediaDetails.vodDirector} />
+                <DetailItem key={"vodDirector"} label="导演" content={mediaDetails.vodDirector} />
               )
             }
             {
               mediaDetails?.vodWriter && (
-                <DetailItem label="编剧" content={mediaDetails.vodWriter} />
+                <DetailItem key={"vodWriter"} label="编剧" content={mediaDetails.vodWriter} />
               )
             }
             {
               mediaDetails?.vodActor && (
-                <DetailItem label="主演" content={mediaDetails.vodActor} />
+                <DetailItem key={"vodActor"} label="主演" content={mediaDetails.vodActor} />
               )
             }
             {
               mediaDetails?.vodBlurb && (
-                <DetailItem label="剧情简介" content={mediaDetails.vodBlurb} />
+                <DetailItem key={"vodBlurb"} label="剧情简介" content={mediaDetails.vodBlurb} />
               )
             }
 
@@ -203,13 +184,11 @@ export default function DetailsPopup({ show, setShow }) {
               {similarMedias && similarMedias.length
                 ? similarMedias
                   .map((mediaItem) => (
-                    <>
-                      <MediaItem
-                        key={mediaItem.vodId}
-                        media={mediaItem}
-                        similarMovieView={true}
-                      />
-                    </>
+                    <MediaItem
+                      key={mediaItem.vodId}
+                      media={mediaItem}
+                      similarMovieView={true}
+                    />
                   ))
                 : null}
             </div>

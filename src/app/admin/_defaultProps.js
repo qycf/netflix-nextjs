@@ -2,7 +2,7 @@
 
 import {
     ChromeFilled,
-    SmileFilled,
+    DatabaseOutlined,
     UserOutlined,
     FundViewOutlined,
     VideoCameraAddOutlined,
@@ -18,12 +18,12 @@ export default {
     route: {
         path: '/',
         routes: [
-            {
-                path: '/welcome',
-                name: '欢迎',
-                icon: <SmileFilled />,
-                component: './Welcome',
-            },
+            // {
+            //     path: '/welcome',
+            //     name: '欢迎',
+            //     icon: <SmileFilled />,
+            //     component: './Welcome',
+            // },
             {
                 path: '/admin/vod',
                 name: '视频',
@@ -42,13 +42,16 @@ export default {
                         path: '/admin/vod/edit',
                         name: '视频编辑',
                         icon: <VideoCameraAddOutlined />,
-                        component: './Welcome',
                     },
                     {
                         path: '/admin/vod/type',
                         name: '视频分类',
                         icon: <ProductOutlined />,
-                        component: './Welcome',
+                    },
+                    {
+                        path: '/admin/vod/collection',
+                        name: '采集列表',
+                        icon: <DatabaseOutlined />,
                     },
                 ],
             },
@@ -84,7 +87,7 @@ export default {
                 icon: <DollarOutlined />,
             },
             {
-                path: '/admin/setting',
+                path: '/admin/settings',
                 name: '设置',
                 icon: 'https://img.icons8.com/ios-filled/50/000000/settings.png',
                 access: 'canAdmin',

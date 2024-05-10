@@ -15,10 +15,7 @@ import com.qu2u.domain.Vod;
 import com.qu2u.mapper.UserFavoritesMapper;
 import com.qu2u.mapper.VodMapper;
 import com.qu2u.model.VodResp;
-import com.qu2u.service.TypeService;
-import com.qu2u.service.UserFavoritesService;
-import com.qu2u.service.VodService;
-import com.qu2u.service.WatchHistoryService;
+import com.qu2u.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -46,15 +43,12 @@ public class VodController {
     private UserFavoritesService userFavoritesService;
 
     @Resource
-    private WatchHistoryService watchHistoryService;
-
-    @Resource
-    private UserFavoritesMapper userFavoritesMapper;
+    private VodRankingService vodRankingService;
 
 
     @PostMapping()
     @Operation(summary = "新增/更新视频")
-    public boolean add(@RequestBody Vod vod) {
+    public boolean saveOrUpdate(@RequestBody Vod vod) {
         vod.setVodTimeAdd((int) (System.currentTimeMillis() / 1000));
 //        System.out.println("VodLevel = "+vod.getVodLevel());
 //        if (null == vod.getVodLevel()) {
@@ -77,8 +71,6 @@ public class VodController {
     @Operation(summary = "查询视频详情")
     @SaCheckLogin
     public Vod detail(@RequestParam("vodId") Integer vodId) {
-
-
         return vodService.getById(vodId);
     }
 
@@ -146,7 +138,7 @@ public class VodController {
     @PostMapping("/status")
     @Operation(summary = "批量设置视频状态")
     public boolean setStatus(@RequestParam("vodIds") Integer[] vodIds, @RequestParam("status") Integer status) {
-        System.out.println("vodIds:" + vodIds);
+        System.out.println("vodIds:" + Arrays.toString(vodIds));
         try {
             LambdaQueryWrapper<Vod> in = new LambdaQueryWrapper<Vod>().in(Vod::getVodId, vodIds);
             vodService.list(in).forEach(vod -> {
@@ -164,11 +156,11 @@ public class VodController {
     public Object ranking(@RequestParam String rankingType) {
 
         if (rankingType.equals("hits")) {
-            return vodService.hitsRank();
+            return vodRankingService.hitsRank();
         }
 
         if (rankingType.equals("favorites")) {
-            return userFavoritesService.favoritesRank();
+            return vodRankingService.favoritesRank();
         }
 
         return null;

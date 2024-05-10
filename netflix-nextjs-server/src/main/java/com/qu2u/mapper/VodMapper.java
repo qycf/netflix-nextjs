@@ -1,6 +1,7 @@
 package com.qu2u.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.qu2u.domain.RankingFavorites;
 import com.qu2u.domain.Vod;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.qu2u.model.VodResp;
@@ -20,6 +21,9 @@ public interface VodMapper extends BaseMapper<Vod> {
     List<VodResp> VodRespListQuery(IPage<VodResp> page, Integer typeId, String vodName, Integer vodLevel, Integer vodStatus);
 
     IPage<VodResp> getVodByFiltersWithPaged(IPage<?> page, Integer typeId, String vodName, Integer vodLevel, Integer vodStatus);
+
+
+    List<RankingFavorites> rankingFavorites();
 
 }
 

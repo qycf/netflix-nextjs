@@ -13,7 +13,7 @@ public enum HttpStatusEnum {
     /**
      * 操作成功
      */
-    SUCCESS(200, "操作成功"),
+    SUCCESS(200, "ok"),
     /**
      * 对象创建成功
      */

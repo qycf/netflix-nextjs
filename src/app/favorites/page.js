@@ -12,7 +12,7 @@ import UnauthPage from "@/components/unauth-page";
 import { favoritesList } from "@/utils/VodReq";
 import { Col, Row } from "antd";
 
-export default function Favorites() {
+export default function FavoritesPage() {
 
   const {
     favorites,

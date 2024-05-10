@@ -65,7 +65,6 @@ export default function Search() {
 
     async function getSearchResults() {
       const res = await getVodList("", "", "0", params.query, "", "1", 999);
-      console.log(res);
       setSearchResults(res.records);
       setPageLoader(false);
     }

@@ -17,7 +17,5 @@ import java.util.List;
 public interface VodService extends IService<Vod> {
 
 
-
     List<Vod> hitsRank();
-
 }

@@ -2,12 +2,20 @@ package com.qu2u.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qu2u.domain.UserFavorites;
 import com.qu2u.domain.Vod;
+import com.qu2u.domain.WatchHistory;
+import com.qu2u.model.VodResp;
+import com.qu2u.service.UserFavoritesService;
 import com.qu2u.service.VodService;
 import com.qu2u.mapper.VodMapper;
+import com.qu2u.service.WatchHistoryService;
+import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
 * @author qy252

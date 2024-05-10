@@ -56,7 +56,6 @@ export async function POST(req) {
             message: data.message,
         });
     } catch (e) {
-        console.log(e);
         return NextResponse.json({
             success: false,
             message: "Something Went wrong",
@@ -86,7 +85,6 @@ export async function DELETE(req) {
             message: data.message,
         });
     } catch (e) {
-        console.log(e);
         return NextResponse.json({
             success: false,
             message: "Something Went wrong",

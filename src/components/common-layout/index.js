@@ -17,7 +17,6 @@ export default function CommonLayout({ mediaData }) {
     >
       <Head>
         <title>Netflix Clone</title>
-        {/* to do -> to add all other properties */}
       </Head>
       <>
         <Navbar />

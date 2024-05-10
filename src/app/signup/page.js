@@ -3,26 +3,25 @@
 
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, use } from "react";
 import MaterialInput from "@/components/materialInput";
 import { useSession } from "next-auth/react";
 import CircleLoader from "@/components/circle-loader";
 import { GlobalContext } from "@/context";
 import { useContext } from "react";
 import { Turnstile } from '@marsidev/react-turnstile'
-import { signUp } from "@/services/auth";
 
 
 export default function Signup() {
     const {
-        loggedInAccount,
-        mediaData,
-        setMediaData,
         setPageLoader,
         pageLoader,
+        siteSettings,
     } = useContext(GlobalContext);
     const { data: session } = useSession();
     const router = useRouter();
+
+
 
     useEffect(() => {
         if (session) {
@@ -32,7 +31,6 @@ export default function Signup() {
             setPageLoader(false);
         }
     }, [session, router, setPageLoader]);
-
 
 
 
@@ -47,6 +45,13 @@ export default function Signup() {
     const ref = useRef()
 
     const [verifiedStatus, setVerifiedStatus] = useState(false);
+
+
+    if (!siteSettings?.siteRegisterStatus) {
+        return <div>注册功能已关闭</div>
+    }
+
+
 
     const handleSignup = async () => {
         // 关闭默认form提交
@@ -80,9 +85,6 @@ export default function Signup() {
             body: JSON.stringify({ username, email, password }),
         });
 
-        console.log("🚀 ~ handleSignup ~ res:", res)
-
-
 
         const data = await res.json();
         setAuthStatus(data.success);
@@ -95,7 +97,7 @@ export default function Signup() {
                     account: username,
                     password,
                 });
-            }, 500);
+            }, 600);
 
         }
         // setAuthMsg(result.error);

@@ -3,12 +3,9 @@ import { useSession, signOut } from 'next-auth/react';
 import {
     CaretDownFilled,
     DoubleRightOutlined,
-    GithubFilled,
     HomeOutlined,
-    InfoCircleFilled,
     LogoutOutlined,
     PlusCircleFilled,
-    QuestionCircleFilled,
     SearchOutlined,
 } from '@ant-design/icons';
 import {
@@ -274,13 +271,7 @@ export default function RootLayout({ children }) {
 
     const {
         setPageLoader,
-        loggedInAccount,
-        setAccounts,
-        accounts,
         setLoggedInAccount,
-        pageLoader,
-        showDetailsPopup,
-        setShowDetailsPopup,
     } = useContext(GlobalContext);
 
     const router = useRouter()

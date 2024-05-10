@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -33,6 +34,7 @@ public class Trade implements Serializable {
     /**
      * 
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal tradeMoney;
 
     /**
@@ -77,9 +79,7 @@ public class Trade implements Serializable {
      */
     private String requestIp;
 
-    /**
-     * 
-     */
+
     private String paymentPlatform;
 
     @TableField(exist = false)

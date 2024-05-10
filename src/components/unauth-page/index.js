@@ -66,6 +66,7 @@ export default function UnauthPage() {
   const {
     setPageLoader,
     setLoggedInAccount,
+    siteSettings
   } = useContext(GlobalContext);
 
   const [showCurrentAns, setShowCurrentAns] = useState(null);
@@ -79,7 +80,7 @@ export default function UnauthPage() {
     >
       <main>
         <div className="bg-[#000000]">
-          <UnauthBanner targetDivRef={targetDivRef} router={router} session={session} setPageLoader={setPageLoader} setLoggedInAccount={setLoggedInAccount} />
+          <UnauthBanner siteSettings={siteSettings} targetDivRef={targetDivRef} router={router} session={session} setPageLoader={setPageLoader} setLoggedInAccount={setLoggedInAccount} />
           <Pricing setOutTradeNo={setOutTradeNo} targetDivRef={targetDivRef} session={session} plansList={plansList} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setCurrentPlan={setCurrentPlan} />
           <PayModal outTradeNo={outTradeNo} session={session} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} currentPlan={currentPlan} />
           <div className="border-b-8 border-gray-800 pb-8">
@@ -307,7 +308,8 @@ function UnauthBanner({
   session,
   setPageLoader,
   setLoggedInAccount,
-  targetDivRef
+  targetDivRef,
+  siteSettings
 }) {
 
 
@@ -320,8 +322,8 @@ function UnauthBanner({
         >
           <div className="flex items-center justify-between ">
             <img
-              src="https://qu2u-com-1305976148.cos.ap-guangzhou.myqcloud.com/Netflix_2015_logo.svg"
-              alt="netflix"
+              src={siteSettings?.siteLogo}
+              alt={siteSettings?.siteTitle}
               width={120}
               height={120}
               className="w-28 sm:w-36 lg:w-52 ml-4 sm:ml-8 pt-4"

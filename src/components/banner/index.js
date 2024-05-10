@@ -5,12 +5,16 @@ import Image from "next/legacy/image";
 import { useRouter } from "next/navigation";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import { useContext } from "react";
+import { GlobalContext } from "@/context";
 
 export default function Banner({ medias }) {
 
-  // const router = useRouter();
-
-
+  const router = useRouter();
+  const {
+    setShowDetailsPopup,
+    setCurrentMediaInfoIdAndType,
+  } = useContext(GlobalContext);
 
   return (
     <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12 pl-4 md:mx-[115px]">
@@ -30,17 +34,25 @@ export default function Banner({ medias }) {
       </p>
       <div className="flex space-x-3">
         <button
-          // onClick={() =>
-          //   router.push(
-          //     // `/watch/${createRandomMedia?.type}/${createRandomMedia?.id}`
-          //   )
-          // }
+          onClick={() =>
+            router.push(
+              `/watch/${medias?.vodId}`
+            )
+          }
           className="cursor-pointer flex items-center gap-x-2 rounded px-5 py-1.5 text-sm font-semibold transition hover:opacity-75 md:py-2.5 md:px-8 md:text-xl bg-white text-black"
         >
           <AiFillPlayCircle className="h-4 w-4 text-black md:h-7 md:w-7 cursor-pointer" />
           Play
         </button>
-        <button className="cursor-pointer flex items-center gap-x-2 rounded px-5 py-1.5 text-sm font-semibold transition hover:opacity-75 md:py-2.5 md:px-8 md:text-xl bg-[gray]/70">
+        <button className="cursor-pointer flex items-center gap-x-2 rounded px-5 py-1.5 text-sm font-semibold transition hover:opacity-75 md:py-2.5 md:px-8 md:text-xl bg-[gray]/70"
+          onClick={() => {
+            setShowDetailsPopup(true);
+            setCurrentMediaInfoIdAndType({
+              type: medias?.typeId,
+              id: medias?.vodId,
+            });
+          }}
+        >
           <IoMdInformationCircleOutline className="h-5 w-5  md:h-8 md:w-8 cursor-pointer" />
           More Info
         </button>

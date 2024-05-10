@@ -2,21 +2,16 @@ package com.qu2u.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.qu2u.domain.Plans;
 import com.qu2u.domain.User;
-import com.qu2u.domain.UserPlanSubscription;
-import com.qu2u.model.UserResp;
 import com.qu2u.service.PlansService;
 import com.qu2u.service.UserPlanSubscriptionService;
 import com.qu2u.service.UserService;
 import com.qu2u.mapper.UserMapper;
 import jakarta.annotation.Resource;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @author Administrator

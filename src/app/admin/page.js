@@ -1,11 +1,10 @@
+import VodManagePage from "./vod/manage/page";
 
 function Page() {
 
 
     return (
-        <div>
-            <h1>admin</h1>
-        </div>
+        <VodManagePage />
     );
 }
 

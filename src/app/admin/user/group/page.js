@@ -40,7 +40,6 @@ function UserGroupPage() {
 
         // 检测表单是否合法
         const values = await form.validateFields();
-        console.log(values);
     };
     const handleCancel = () => {
         // 表格数据清空

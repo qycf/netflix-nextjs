@@ -13,7 +13,6 @@ function BillingPage() {
 
 
     useEffect(() => {
-
         async function userTrade() {
             const res = await fetch('/api/trade/list/user', { method: 'GET' })
             const data = await res.json();
@@ -21,9 +20,7 @@ function BillingPage() {
         }
 
         userTrade();
-
-
-    })
+    }, [])
 
 
     return (
@@ -58,30 +55,27 @@ function BillingPage() {
                                 </tr>
                             </thead>
                             <tbody>
+
                                 {
-
-                                    userTrade && userTrade.length && userTrade.map((item, index) => {
-
-                                        return (
-                                            <tr className="border-b" key={index}>
-                                                <td className="px-16 py-4 whitespace-nowrap text-sm font-light text-gray-900">
-                                                    {dayjs(item.createTime).format("YYYY/MM/DD")}
-                                                </td>
-                                                <td className="px-16 py-4 whitespace-nowrap text-sm font-light text-gray-900">
-                                                    {item.tradeName}
-                                                </td>
-                                                <td className="px-16 py-4 whitespace-nowrap text-sm font-light text-gray-900">
-                                                    {dayjs(item.createTime).format("YYYY/MM/DD")}
-                                                </td>
-                                                <td className="px-16 py-4 whitespace-nowrap text-sm font-light text-gray-900">
-                                                    {item.payMethod}
-                                                </td>
-                                                <td className="px-16 py-4 whitespace-nowrap text-sm font-light text-gray-900">
-                                                    {item.tradeMoney}
-                                                </td>
-                                            </tr>
-                                        );
-                                    })
+                                    userTrade && userTrade.length > 0 ? userTrade.map((item, index) => (
+                                        <tr className="border-b" key={index}>
+                                            <td className="px-16 py-4 whitespace-nowrap text-sm font-light text-gray-900">
+                                                {dayjs(item.createTime).format("YYYY/MM/DD")}
+                                            </td>
+                                            <td className="px-16 py-4 whitespace-nowrap text-sm font-light text-gray-900">
+                                                {item.tradeName}
+                                            </td>
+                                            <td className="px-16 py-4 whitespace-nowrap text-sm font-light text-gray-900">
+                                                {dayjs(item.createTime).format("YYYY/MM/DD")}
+                                            </td>
+                                            <td className="px-16 py-4 whitespace-nowrap text-sm font-light text-gray-900">
+                                                {item.payMethod}
+                                            </td>
+                                            <td className="px-16 py-4 whitespace-nowrap text-sm font-light text-gray-900">
+                                                {item.tradeMoney} CNY
+                                            </td>
+                                        </tr>
+                                    )) : null
                                 }
                             </tbody>
                         </table>

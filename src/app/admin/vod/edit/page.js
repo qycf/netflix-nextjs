@@ -324,14 +324,6 @@ function VodAdd() {
                             />
                         </Form.Item>
                     </Col>
-
-
-
-
-
-
-
-
                 </Row>
             </Form>
 
@@ -347,7 +339,9 @@ function VodAdd() {
                     </Button>
                 </Col>
                 <Col>
-                    <Button size='large'>还原</Button>
+                    <Button size='large' onClick={() => {
+                        form.resetFields();
+                    }}>还原</Button>
                 </Col>
             </Row>
 

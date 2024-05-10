@@ -57,8 +57,7 @@ public class UserController {
 
     @PostMapping()
     @Operation(summary = "新增/更新用户")
-    public boolean add(@RequestBody User user, HttpServletRequest request) {
-
+    public boolean saveOrUpdate(@RequestBody User user, HttpServletRequest request) {
 
         if ("".equals(user.getPassword())){
             user.setPassword(null);

@@ -1,8 +1,8 @@
+import UserManagePage from "./manage/page";
+
 function User() {
     return (
-        <div>
-            <h1>user</h1>
-        </div>
+        <UserManagePage />
     );
 }
 

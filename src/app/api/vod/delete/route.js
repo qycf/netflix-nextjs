@@ -10,7 +10,6 @@ export async function DELETE(req) {
         const { searchParams } = new URL(req.url)
 
         const vodIds = searchParams.get('vodIds')
-        console.log("🚀 ~ DELETE ~ vodIds:", vodIds)
 
         const { data } = await apiFetch(`/vod?vodIds=${vodIds}`, {
             method: 'delete',

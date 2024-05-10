@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import Navbar from "@/components/navbar";
+
 import UserMenu from "@/components/user-menu";
 
 import { GlobalContext } from "@/context";
 import { useSession } from "next-auth/react";
 import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 export default function AccountsLayout({ children }) {
@@ -15,9 +16,15 @@ export default function AccountsLayout({ children }) {
     const {
         setPageLoader,
         loggedInAccount,
+        siteSettings,
     } = useContext(GlobalContext);
 
+    const { data: session } = useSession()
+    const route = useRouter()
 
+    if (session === null) {
+        return route.push("/signin")
+    }
 
     return (
         <>
@@ -26,10 +33,10 @@ export default function AccountsLayout({ children }) {
             >
                 <a href="/" className="flex items-center space-x-2 md:space-x-10">
                     <img
-                        src="https://qu2u-com-1305976148.cos.ap-guangzhou.myqcloud.com/Netflix_2015_logo.svg"
+                        src={siteSettings?.siteLogo}
                         width={120}
                         height={120}
-                        alt="NETFLIX"
+                        alt={siteSettings?.siteTitle}
                         className="cursor-pointer object-contain"
                     />
                 </a>
@@ -46,17 +53,8 @@ export default function AccountsLayout({ children }) {
                     <p>{loggedInAccount && loggedInAccount.name}</p>
                 </div>
 
-
-
                 {
                     showAccountPopup && (
-                        // <AccountPopup
-                        //   accounts={accounts}
-                        //   setPageLoader={setPageLoader}
-                        //   signOut={signOut}
-                        //   loggedInAccount={loggedInAccount}
-                        //   setLoggedInAccount={setLoggedInAccount}
-                        // />
                         <UserMenu
                             setPageLoader={setPageLoader}
                         />

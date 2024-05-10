@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 
 
 
-function Manage() {
+function VodManagePage() {
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [queryVodListData, setQueryVodListData] = useState([]);
@@ -72,10 +72,10 @@ function Manage() {
             width: 200,
         },
         {
-            title: '浏览',
+            title: '播放',
             dataIndex: 'vodId',
             render: (vodId) => {
-                return <a><Tag icon={<YoutubeOutlined />} color="#cd201f"></Tag></a>;
+                return <a href={`/watch/${vodId}`} target='_blank'><Tag icon={<YoutubeOutlined />} color="#cd201f"></Tag></a>;
             },
             width: 90,
         },
@@ -156,13 +156,13 @@ function Manage() {
     };
 
 
-
     const fetchData = async () => {
         setIsLoad(true);
         // 获取表单数据
         const { typeId, vodStatus, vodLevel, vodName } = form.getFieldsValue();
 
         const queryVodList = await getVodList(typeId, "", vodStatus, vodName, vodLevel, tableParams.pagination.current, tableParams.pagination.pages);
+
         setQueryVodListData(queryVodList.records);
         setTableParams({
             ...tableParams,
@@ -423,4 +423,4 @@ const labelRender = (props) => {
 
 
 
-export default Manage;
+export default VodManagePage;

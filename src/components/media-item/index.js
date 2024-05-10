@@ -77,7 +77,7 @@ export default function MediaItem(Prop) {
       }
       const episodes = vodPlayUrl.split("$$$");
       const m3u8Urls = episodes
-        .map(episode => episode.split("#").find(segment => segment.includes(".m3u8")))
+        .map(episode => episode.split("#").find(segment => segment.includes(".m3u8") || segment.includes(".mp4")))
         .filter(Boolean)
         .map(m3u8Segment => m3u8Segment.split("$")[1]);
 

@@ -37,7 +37,7 @@ export default function MediaRow({ title, medias }) {
 
       <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
         {medias &&
-          medias.length &&
+          medias.length > 0 ?
           medias
             .map((mediaItem, index) => (
               <Col key={index} xs={{ span: 12 }} sm={{ span: 6 }} md={{ span: 6 }} lg={{ span: 3 }}  >
@@ -50,7 +50,7 @@ export default function MediaRow({ title, medias }) {
                   muted={muted}
                 />
               </Col>
-            ))}
+            )) : null}
       </Row>
     </div>
   );

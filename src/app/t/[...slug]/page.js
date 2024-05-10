@@ -63,7 +63,6 @@ export default function VodTypePage({ params: { slug } }) {
   const givenTime = new Date(session?.user.planExpirationTime);
   const currentTime = new Date();
 
-  console.log(currentTime < givenTime);
   if (currentTime > givenTime) return <UnauthPage />;
 
   // if (loggedInAccount === null) return <ManageAccounts />;

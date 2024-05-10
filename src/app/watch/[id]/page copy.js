@@ -51,7 +51,6 @@ export default function Watch() {
     async function getMediaDetails() {
 
       const vod = await getVodDetail(params.id)
-      console.log("🚀 ~ getMediaDetails ~ vod:", vod)
       setMediaDetails(vod);
       setPageLoader(false);
     }

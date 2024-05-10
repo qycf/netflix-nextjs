@@ -204,5 +204,11 @@
         </where>
         ORDER BY v.vod_time_add DESC
     </select>
-
+    <select id="rankingFavorites" resultType="com.qu2u.domain.RankingFavorites">
+        SELECT vod_id,
+               COUNT(vod_id) AS favorites_count
+        FROM user_favorites
+        GROUP BY vod_id
+        ORDER BY favorites_count DESC LIMIT 10;
+    </select>
 </mapper>

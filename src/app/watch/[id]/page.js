@@ -3,7 +3,6 @@ import Player from '@/components/player';
 import apiFetch from '@/utils/request';
 
 
-
 export async function generateMetadata({ params: { id } }) {
 
   try {
@@ -29,7 +28,9 @@ export async function generateMetadata({ params: { id } }) {
 
 
 
+
 export default function Watch({ params: { id } }) {
+
 
   return (
     <>

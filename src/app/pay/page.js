@@ -76,7 +76,6 @@ function outcome(keys, url, data) {
     }
     let akey = keys;
 
-    console.log(prestr + akey);
     let sign = utility.md5(prestr + akey);
 
     let result = `${url}submit.php?${prestr}&sign=${sign}&sign_type=MD5`

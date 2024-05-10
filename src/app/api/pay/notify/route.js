@@ -31,8 +31,6 @@ export async function GET(req) {
     }
 
     if (trade_status === 'TRADE_SUCCESS') {
-        console.log('支付成功');
-        console.log(params);
         return new NextResponse('success');
     } else {
         return NextResponse.json({

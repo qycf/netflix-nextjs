@@ -2,6 +2,7 @@ package com.qu2u.service;
 
 import com.qu2u.domain.UserFavorites;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qu2u.domain.Vod;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,5 +16,4 @@ public interface UserFavoritesService extends IService<UserFavorites> {
 
 
     List<HashMap<String, Object>> favoritesRank();
-
 }

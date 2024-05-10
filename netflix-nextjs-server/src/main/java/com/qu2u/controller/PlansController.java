@@ -29,7 +29,7 @@ public class PlansController {
 
     @PostMapping()
     @Operation(summary = "新增/更新套餐")
-    public boolean add(@RequestBody Plans plans) {
+    public boolean saveOrUpdate(@RequestBody Plans plans) {
         return plansService.saveOrUpdate(plans);
     }
 

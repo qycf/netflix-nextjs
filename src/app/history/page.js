@@ -12,7 +12,7 @@ import UnauthPage from "@/components/unauth-page";
 import { getUserWatchHistory } from "@/utils/VodReq";
 import { Col, Row } from "antd";
 
-export default function Favorites() {
+export default function WatchHistoryPage() {
 
   const {
     pageLoader,

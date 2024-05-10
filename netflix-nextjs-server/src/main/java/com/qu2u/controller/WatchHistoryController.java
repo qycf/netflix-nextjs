@@ -39,7 +39,7 @@ public class WatchHistoryController {
 
     @GetMapping
     @Operation(summary = "获取用户观看历史")
-    public Object list() {
+    public Object listUserWatchHistory() {
 
 // 获取当前登录用户的id
         int loginIdAsInt = StpUtil.getLoginIdAsInt();

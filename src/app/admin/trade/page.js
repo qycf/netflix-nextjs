@@ -112,7 +112,7 @@ function TradePage() {
             render: (tradeMoney) => {
                 return <a>{tradeMoney}</a>;
             },
-            width: 200,
+            width: 150,
 
         },
         {
@@ -121,7 +121,7 @@ function TradePage() {
             render: (userId) => {
                 return <a>{userId}</a>;
             },
-            width: 200,
+            width: 120,
 
         },
         {
@@ -130,7 +130,7 @@ function TradePage() {
             render: (tradeNo) => {
                 return <a>{tradeNo}</a>;
             },
-            width: 150,
+            width: 170,
         },
         {
             title: '创建时间',
@@ -160,7 +160,8 @@ function TradePage() {
             title: '支付时间',
             dataIndex: 'payTime',
             render: (payTime) => {
-                return <a>{payTime ? { payTime } : "-"}</a>;
+                return <a>{payTime !== null ? payTime : "-"}</a>;
+
             },
             width: 200,
         },
@@ -173,91 +174,40 @@ function TradePage() {
             width: 200,
         },
         // {
-        //     title: '用户组',
-        //     dataIndex: 'groupName',
-        //     render: (groupName, record) => {
-        //         const color = groupTypeColorMap[record.groupType];
-        //         return (
-        //             <>
-        //                 <Tag color={color}> {groupName}</Tag>
-        //             </>
-        //         );
-        //     },
-        //     width: 150,
-        // },
-        // {
-        //     title: '订阅计划',
-        //     dataIndex: 'planId',
-        //     render: (planId, record) => {
-        //         const givenTime = new Date(record.planExpirationTime);
-        //         const currentTime = new Date();
+        //     title: '操作',
+        //     render: (_, record) => (
+        //         <Space size="middle">
+        //             <Button
+        //                 onClick={() => {
+        //                     const { userId, username, email, groupId, planId } = record
+        //                     if (record.planExpirationTime !== null) {
+        //                         editForm.setFieldValue('planExpirationTime', dayjs(record.planExpirationTime, 'YYYY-MM-DD HH:mm:ss'))
+        //                     }
 
-        //         return (
-        //             <>
-        //                 <Tag > {planId}</Tag>
-        //                 <span className={givenTime > currentTime ? 'text-green-600' : 'text-red-300'}>
-        //                     {record.planExpirationTime}
-        //                 </span>
-        //             </>
-        //         );
-        //     },
-        //     width: 250,
+        //                     const safePlanId = planId || '';
+        //                     editForm.setFieldsValue({ userId, username, email, groupId, planId: safePlanId })
+        //                     setOpen(true)
+        //                 }}
+        //             >编辑
+        //             </Button>
+        //             <Popconfirm
+        //                 title="提醒"
+        //                 description="删除之后无法恢复，您确定删除吗？"
+        //                 onConfirm={() => {
+        //                     onClickDeteteVods(record.vodId)
+        //                 }}
+        //                 onCancel={() => {
+        //                     messageApi.info('取消删除')
+        //                 }}
+        //                 okText="删除"
+        //                 cancelText="取消"
+        //                 okButtonProps={{ danger: true }}
+        //             >
+        //                 <Button danger>删除</Button>
+        //             </Popconfirm>
+        //         </Space >
+        //     ),
         // },
-        // {
-        //     title: '状态',
-        //     dataIndex: 'status',
-        //     render: (status, record) => {
-        //         return <Switch
-        //             key={record.userId}
-        //             checkedChildren="锁定"
-        //             unCheckedChildren="解锁"
-        //             onChange={async (checked) => {
-        //                 const res = await saveOrUpdateUser(JSON.stringify({ userId: record.userId, status: checked ? 1 : 0 }))
-        //                 if (res.success) {
-        //                     fetchData()
-        //                 }
-        //             }}
-        //             className='bg-[rgb(152,152,152)] '
-        //             value={status === 1 ? true : false}
-        //         />
-        //     },
-        //     width: 150,
-        // },
-        {
-            title: '操作',
-            render: (_, record) => (
-                <Space size="middle">
-                    <Button
-                        onClick={() => {
-                            const { userId, username, email, groupId, planId } = record
-                            if (record.planExpirationTime !== null) {
-                                editForm.setFieldValue('planExpirationTime', dayjs(record.planExpirationTime, 'YYYY-MM-DD HH:mm:ss'))
-                            }
-
-                            const safePlanId = planId || '';
-                            editForm.setFieldsValue({ userId, username, email, groupId, planId: safePlanId })
-                            setOpen(true)
-                        }}
-                    >编辑
-                    </Button>
-                    <Popconfirm
-                        title="提醒"
-                        description="删除之后无法恢复，您确定删除吗？"
-                        onConfirm={() => {
-                            onClickDeteteVods(record.vodId)
-                        }}
-                        onCancel={() => {
-                            messageApi.info('取消删除')
-                        }}
-                        okText="删除"
-                        cancelText="取消"
-                        okButtonProps={{ danger: true }}
-                    >
-                        <Button danger>删除</Button>
-                    </Popconfirm>
-                </Space >
-            ),
-        },
     ];
 
     // 选择

@@ -1,12 +1,13 @@
 "use client";
 
 import CircleLoader from "@/components/circle-loader";
+import { getOptions } from "@/utils/OptionsReq";
 import { useSession } from "next-auth/react";
 import { createContext, useEffect, useState } from "react";
 
 export const GlobalContext = createContext(null);
 
-export default function GlobalState({ children }) {
+export default function GlobalState({ children, metadata }) {
   const [loggedInAccount, setLoggedInAccount] = useState(null);
   const [accounts, setAccounts] = useState([]);
   const [pageLoader, setPageLoader] = useState(true);
@@ -18,14 +19,25 @@ export default function GlobalState({ children }) {
   const [mediaDetails, setMediaDetails] = useState(null);
   const [similarMedias, setSimilarMedias] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [siteSettings, setSiteSettings] = useState(metadata);
+
 
   const { data: session } = useSession();
 
+
   useEffect(() => {
-    if (session?.user) { // 使用可选链（Optional Chaining）确保session存在
+    async function getSiteSettings() {
+      const data = await getOptions("site_settings")
+      setSiteSettings(JSON.parse(data.optionValue)
+      );
+    }
+
+    getSiteSettings();
+
+    if (session?.user) {
       setLoggedInAccount(session.user);
     }
-  }, [session]);
+  }, []);
 
 
   if (session === undefined) return <CircleLoader />;
@@ -53,6 +65,7 @@ export default function GlobalState({ children }) {
         setSimilarMedias,
         favorites,
         setFavorites,
+        siteSettings,
       }}
     >
       {children}

@@ -15,7 +15,7 @@ const groupTypeColorMap = {
     vip: 'gold',
 };
 
-function UserManage() {
+function UserManagePage() {
 
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -215,7 +215,7 @@ function UserManage() {
                         }}
                     >编辑
                     </Button>
-                    <Popconfirm
+                    {/* <Popconfirm
                         title="提醒"
                         description="删除之后无法恢复，您确定删除吗？"
                         onConfirm={() => {
@@ -229,7 +229,7 @@ function UserManage() {
                         okButtonProps={{ danger: true }}
                     >
                         <Button danger>删除</Button>
-                    </Popconfirm>
+                    </Popconfirm> */}
                 </Space >
             ),
         },
@@ -496,4 +496,4 @@ const labelRender = (props) => {
 };
 
 
-export default UserManage;
+export default UserManagePage;

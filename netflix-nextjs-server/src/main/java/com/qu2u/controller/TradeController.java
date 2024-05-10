@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/trade")
@@ -98,13 +99,13 @@ public class TradeController {
     @Operation(summary = "获取用户交易订单列表")
     @SaCheckLogin
     public Object listUserTrade() {
-
         LambdaQueryWrapper<Trade> tradeLambdaQueryWrapper = new LambdaQueryWrapper<>();
         tradeLambdaQueryWrapper.eq(Trade::getUserId, StpUtil.getLoginIdAsInt());
         tradeLambdaQueryWrapper.eq(Trade::getTradeStatus,"TRADE_SUCCESS");
         tradeLambdaQueryWrapper.orderByDesc(Trade::getCreateTime);
         tradeLambdaQueryWrapper.last("limit 10");
+        List<Trade> list = tradeService.list(tradeLambdaQueryWrapper);
 
-        return tradeService.list(tradeLambdaQueryWrapper);
+        return list;
     }
 }

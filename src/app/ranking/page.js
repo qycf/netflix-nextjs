@@ -54,21 +54,21 @@ function RankingPage() {
 
                 <Row className="mx-auto">
                     <Col span={6}>
-                        <div class="bg-[#181818] shadow-md rounded-md p-4  max-w-sm mt-16">
-                            <h2 class="text-xl font-semibold mb-4">最多播放</h2>
+                        <div className="bg-[#181818] shadow-md rounded-md p-4  max-w-sm mt-16">
+                            <h2 className="text-xl font-semibold mb-4">最多播放</h2>
                             <ul>
                                 {
                                     hitsRanking && hitsRanking.length && hitsRanking.map((item, index) => {
                                         return (
-                                            <li class=" py-2 border-b border-[#666666]" key={index} >
+                                            <li className=" py-2 border-b border-[#666666]" key={index} >
                                                 <Row>
                                                     <Col span={10}>
-                                                        <div class="flex items-center">
-                                                            <span class="text-lg font-semibold mr-4">{index + 1}</span>
+                                                        <div className="flex items-center">
+                                                            <span className="text-lg font-semibold mr-4">{index + 1}</span>
                                                             <img
                                                                 src={item.vodPic}
                                                                 alt="User Avatar"
-                                                                class="w-[100px] h-[175px] mr-4 cursor-pointer"
+                                                                className="w-[100px] h-[175px] mr-4 cursor-pointer"
                                                                 onClick={() => {
                                                                     watchVod(item.vodId)
                                                                 }}
@@ -91,21 +91,21 @@ function RankingPage() {
                         </div>
                     </Col>
                     <Col span={6}>
-                        <div class="bg-[#181818] shadow-md rounded-md p-4  max-w-sm mt-16">
-                            <h2 class="text-xl font-semibold mb-4">最多收藏</h2>
+                        <div className="bg-[#181818] shadow-md rounded-md p-4  max-w-sm mt-16">
+                            <h2 className="text-xl font-semibold mb-4">最多收藏</h2>
                             <ul>
                                 {
                                     favoritesRanking && favoritesRanking.length && favoritesRanking.map((item, index) => {
                                         return (
-                                            <li class=" py-2 border-b border-[#666666]" key={index} >
+                                            <li className=" py-2 border-b border-[#666666]" key={index} >
                                                 <Row>
                                                     <Col span={10}>
-                                                        <div class="flex items-center">
-                                                            <span class="text-lg font-semibold mr-4">{index + 1}</span>
+                                                        <div className="flex items-center">
+                                                            <span className="text-lg font-semibold mr-4">{index + 1}</span>
                                                             <img
                                                                 src={item.vod.vodPic}
                                                                 alt="User Avatar"
-                                                                class="w-[100px] h-[175px] mr-4 cursor-pointer"
+                                                                className="w-[100px] h-[175px] mr-4 cursor-pointer"
                                                                 onClick={() => {
                                                                     watchVod(item.vod.vodId)
                                                                 }}

@@ -1,13 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import Search from "./search";
 import { AiOutlineSearch } from "react-icons/ai";
 import { GlobalContext } from "@/context";
-import AccountPopup from "./account-popup";
 import CircleLoader from "../circle-loader";
 import DetailsPopup from "../details-popup";
 import { getVodTypeList } from "@/utils/VodReq";
@@ -28,6 +27,7 @@ export default function Navbar() {
     pageLoader,
     showDetailsPopup,
     setShowDetailsPopup,
+    siteSettings,
   } = useContext(GlobalContext);
 
   const [typeList, setTypeList] = useState([]);
@@ -48,6 +48,7 @@ export default function Navbar() {
 
   async function getVodTypeListData() {
     const res = await getVodTypeList("0");
+
     setTypeList(res);
   }
 
@@ -64,19 +65,21 @@ export default function Navbar() {
       >
         <div className="flex items-center space-x-2 md:space-x-10">
           <img
-            src="https://qu2u-com-1305976148.cos.ap-guangzhou.myqcloud.com/Netflix_2015_logo.svg"
+            // src="https://qu2u-com-1305976148.cos.ap-guangzhou.myqcloud.com/Netflix_2015_logo.svg"
+            src={siteSettings?.siteLogo}
             width={120}
             height={120}
-            alt="NETFLIX"
+            alt={siteSettings?.siteTitle}
             className="cursor-pointer object-contain"
             onClick={() => router.push("/browse")}
           />
           <ul className="hidden md:space-x-4 md:flex cursor-pointer">
             <li onClick={
               () => {
+                if (pathName === "/browse" || pathName === "/") return;
                 setPageLoader(true);
                 router.push("/browse");
-                setShowSearchBar(false);
+                // setShowSearchBar(false);
               }
             } className="text-[16px] font-light text-[#e5e5e5] transition duration-[.4s] hover:text-[#b3b3b3]">
               首页
@@ -84,6 +87,8 @@ export default function Navbar() {
             {typeList && typeList.map((item) => (
               <li
                 onClick={() => {
+                  // 如果是当前路由，不跳转
+                  if (pathName === `/t/${item.typeSlug}`) return;
                   setPageLoader(true);
                   router.push(`/t/${item.typeSlug}`);
                   // setSearchQuery("");
@@ -95,6 +100,18 @@ export default function Navbar() {
                 {item.typeName}
               </li>
             ))}
+            <li onClick={
+              () => {
+                // 如果是当前路由，不跳转
+                if (pathName === "/ranking") return;
+
+                setPageLoader(true);
+                router.push("/ranking");
+                // setShowSearchBar(false);
+              }
+            } className="text-[16px] font-light text-[#e5e5e5] transition duration-[.4s] hover:text-[#b3b3b3]">
+              排名
+            </li>
           </ul>
         </div>
         <div className="font-light flex items-center space-x-4 text-sm">

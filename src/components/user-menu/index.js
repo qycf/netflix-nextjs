@@ -16,7 +16,7 @@ function UserMenu(
 
     const userMenus = [
         {
-            name: "帐户设置",
+            name: "账号设置",
             path: "/accounts"
         },
         {

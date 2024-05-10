@@ -4,11 +4,16 @@ package com.qu2u.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qu2u.common.ResponseResult;
+import com.qu2u.domain.Options;
 import com.qu2u.domain.User;
+import com.qu2u.model.SiteSettings;
 import com.qu2u.model.UserLoginModel;
 import com.qu2u.model.UserRegModel;
 import com.qu2u.model.UserResp;
+import com.qu2u.service.OptionsService;
 import com.qu2u.service.PlansService;
 import com.qu2u.service.UserPlanSubscriptionService;
 import com.qu2u.service.UserService;
@@ -38,16 +43,23 @@ public class AuthController {
     @Resource
     private PasswordEncoder passwordEncoder;
 
+    @Resource
+    private OptionsService optionsService;
+
 
     @PostMapping("signin")
     @Operation(summary = "用户登录")
     public ResponseResult<?> login(@RequestBody UserLoginModel userLoginModel, HttpServletResponse response, HttpServletRequest request) {
         try {
             User userResp = userService.authenticateUser(userLoginModel.getAccount(), userLoginModel.getPassword());
+
             if (userResp != null) {
+                if (userResp.getStatus() == 1) {
+                    return ResponseResult.fail("账号已被禁用");
+                }
                 StpUtil.login(userResp.getUserId());
                 response.setHeader("Authorization", "Bearer " + StpUtil.getTokenValue());
-                System.out.println("Authorization："+response.getHeader("Authorization"));
+                System.out.println("Authorization：" + response.getHeader("Authorization"));
                 userService.updateUserLoginInfo(userResp.getUserId(), getClientIP(request));
                 return ResponseResult.success(userResp);
             } else {
@@ -60,14 +72,23 @@ public class AuthController {
     }
 
 
-
-
     @PostMapping("/signup")
     @Operation(summary = "用户注册")
-    public ResponseResult<?> signup(@RequestBody UserRegModel userRegModel, HttpServletRequest request) {
+    public ResponseResult<?> signup(@RequestBody UserRegModel userRegModel, HttpServletRequest request) throws JsonProcessingException {
 
+        LambdaQueryWrapper<Options> optionsLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        optionsLambdaQueryWrapper.eq(Options::getOptionKey, "site_settings");
+        Options siteSettingsOption = optionsService.getOne(optionsLambdaQueryWrapper);
 
-        System.out.println("注册信息："+userRegModel.toString());
+        if (siteSettingsOption != null) {
+            String siteSettingsOptionValueStr = siteSettingsOption.getOptionValue();
+            ObjectMapper objectMapper = new ObjectMapper();
+            SiteSettings siteSettings = objectMapper.readValue(siteSettingsOptionValueStr, SiteSettings.class);
+            if (!siteSettings.getSiteRegisterStatus()) {
+                return ResponseResult.fail("注册功能已关闭");
+            }
+        }
+
         // 检查用户名或邮箱是否已被注册
         boolean userExists = userService.getOne(
                 new LambdaQueryWrapper<User>()
@@ -87,7 +108,7 @@ public class AuthController {
         // 加密密码
         newUser.setPassword(passwordEncoder.encode(userRegModel.getPassword()));
 //        newUser.setRegTime(LocalDateTime.now());
-        System.out.println("注册时间："+LocalDateTime.now());
+        System.out.println("注册时间：" + LocalDateTime.now());
         // 设置注册IP
         newUser.setRegIp(getClientIP(request));
         newUser.setGroupId(2);
@@ -102,9 +123,7 @@ public class AuthController {
     @Operation(summary = "用户登出")
     @SaCheckLogin
     public ResponseResult<?> logout() {
-        System.out.println("登录状态："+StpUtil.isLogin());
         StpUtil.logout();
-
         return ResponseResult.success();
     }
 
